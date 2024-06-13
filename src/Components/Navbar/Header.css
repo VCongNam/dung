@@ -22,3 +22,6 @@
 /* .nav-menu li hr {
   border-top: 2px solid #000;
 } */
+body {
+  padding-top: 70px; /* Điều chỉnh giá trị này tùy theo chiều cao của navbar */
+}

@@ -36,4 +36,8 @@
     transform: rotate(360deg);
   }
 }
+/* src/App.css */
+.content {
+  padding-top: 70px; /* Điều chỉnh giá trị này tùy theo chiều cao của navbar */
+}
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "../Pages/Css/Booking.css";
+import * as xlsx from 'xlsx';
 
 const Booking = () => {
   const [bookingDetails, setBookingDetails] = useState({
@@ -20,15 +21,35 @@ const Booking = () => {
     });
   };
 
-
-  
-
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(bookingDetails);
+
+    try {
+      // Read existing data from the Excel file (if it exists)
+      let workbook = xlsx.utils.book_new();
+      const excelData = localStorage.getItem('bookingData');
+      if (excelData) {
+        workbook = xlsx.read(excelData, { type: 'binary' });
+      }
+
+      // Get the first worksheet or create a new one
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]] || xlsx.utils.json_to_sheet([]);
+
+      // Append the new booking data to the worksheet
+      const newRow = Object.values(bookingDetails);
+      xlsx.utils.sheet_add_row(worksheet, newRow);
+
+      // Write the updated data to the local storage
+      const updatedExcelData = xlsx.write(workbook, { type: 'binary', bookType: 'xlsx' });
+      localStorage.setItem('bookingData', updatedExcelData);
+      console.log('Booking data saved to local storage successfully');
+      // Handle success (e.g., show a success message, reset the form, etc.)
+    } catch (error) {
+      console.error('Error saving booking data:', error);
+      // Handle error (e.g., show an error message, etc.)
+    }
   };
+
 
   return (
     <Container className="booking-container">
