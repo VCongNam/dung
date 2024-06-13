@@ -1,0 +1,35 @@
+.hero {
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-text {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.btn-link {
+  text-decoration: none;
+}
+
+.hero-btn {
+  font-size: 1.2rem;
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+}
