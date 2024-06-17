@@ -6,7 +6,7 @@ const Booking = () => {
   const [bookingDetails, setBookingDetails] = useState({
     name: "",
     phone: "",
-    people: "2", // default to 2 people
+    people: "2", 
     date: "",
     time: "",
     notes: ""
