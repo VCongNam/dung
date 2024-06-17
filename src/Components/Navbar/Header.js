@@ -5,6 +5,7 @@ import logo from "../Assets/logo.png";
 import "./Header.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-bootstrap";
 
 function BasicExample() {
   const [expanded, setExpanded] = useState(false);
@@ -18,12 +19,14 @@ function BasicExample() {
   };
 
   return (
-    <Navbar className="fixed-top" expanded={expanded} expand="lg" style={{ backgroundColor: "#D8C4B9" }}>
+    <Navbar expanded={expanded} expand="lg" style={{ backgroundColor: "#D8C4B9" }}>
       <Container fluid="md">
-        <Navbar.Brand href="#home">
+        <NavLink as={Link} to="/">
+        <Navbar.Brand>
           <img alt="" src={logo} />{" "}
           <span style={{ fontWeight: "600" }}>Dúng</span>
         </Navbar.Brand>
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

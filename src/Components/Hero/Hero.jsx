@@ -11,7 +11,7 @@ const Hero = () => {
         <Row>
           <Col className="hero-text">
             <h1>Dúng xin chào bạn.</h1>
-            <p>
+            <p style={{textAlign:"justify"}}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
               natus quae eaque sunt expedita neque impedit incidunt repellendus
               vel reiciendis.
