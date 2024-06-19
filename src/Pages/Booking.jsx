@@ -18,6 +18,8 @@ const Booking = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingBooking, setEditingBooking] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [bookingToDelete, setBookingToDelete] = useState(null);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -106,16 +108,27 @@ const Booking = () => {
     setShowEditModal(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleShowDeleteModal = (booking) => {
+    setBookingToDelete(booking);
+    setShowDeleteModal(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setBookingToDelete(null);
+    setShowDeleteModal(false);
+  };
+
+  const confirmDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:9999/bookings/${id}`, {
+      const response = await fetch(`http://localhost:9999/bookings/${bookingToDelete.id}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
         console.log('Booking deleted successfully');
-        setBookings(bookings.filter(booking => booking.id !== id));
-        setFilteredBookings(filteredBookings.filter(booking => booking.id !== id));
+        setBookings(bookings.filter(booking => booking.id !== bookingToDelete.id));
+        setFilteredBookings(filteredBookings.filter(booking => booking.id !== bookingToDelete.id));
+        setShowDeleteModal(false);
       } else {
         console.error('Error deleting booking:', response.statusText);
       }
@@ -164,7 +177,7 @@ const Booking = () => {
         <Row>
           <Col md={6}>
             <Form.Group controlId="formName">
-              <Form.Label>Tên người đặt</Form.Label>
+              <Form.Label>Họ và tên</Form.Label>
               <Form.Control
                 type="text"
                 name="name"
@@ -271,7 +284,7 @@ const Booking = () => {
                 Tra cứu
               </Button>
             </Col>
-           
+          
           </Row>
         </Form>
       </div>
@@ -305,7 +318,7 @@ const Booking = () => {
                     {booking.status === "Chờ duyệt" && (
                       <>
                         <Button variant="warning" size="sm" onClick={() => handleEdit(booking)}>Sửa</Button>{' '}
-                        <Button variant="danger" size="sm" onClick={() => handleDelete(booking.id)}>Xóa</Button>
+                        <Button variant="danger" size="sm" onClick={() => handleShowDeleteModal(booking)}>Xóa</Button>
                       </>
                     )}
                   </td>
@@ -416,6 +429,23 @@ const Booking = () => {
           </Button>
           <Button variant="primary" onClick={handleUpdate}>
             Lưu thay đổi
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Xác nhận xóa</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Bạn có chắc chắn muốn xóa thông tin đặt bàn này không?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDeleteModal}>
+            Hủy
+          </Button>
+          <Button variant="danger" onClick={confirmDelete}>
+            Xóa
           </Button>
         </Modal.Footer>
       </Modal>

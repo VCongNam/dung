@@ -31,16 +31,6 @@
       "status": "Thành công"
     },
     {
-      "id": "f6e1",
-      "name": "Vũ Công Nam",
-      "phone": "0395923769",
-      "people": "2",
-      "date": "2024-06-26",
-      "time": "00:09",
-      "notes": "",
-      "status": "Chờ duyệt"
-    },
-    {
       "id": "abdf",
       "name": "Vũ Công Nam",
       "phone": "0395923769",
@@ -51,7 +41,18 @@
       "status": "Chờ duyệt"
     }
   ],
-  "customers": [],
+  "customers": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "phone": "1234567890"
+    },
+    {
+      "id": "2",
+      "name": "Vũ Công Nam",
+      "phone": "0395923769"
+    }
+  ],
   "menu": [
     {
       "meat": [

@@ -42,6 +42,9 @@ function BasicExample() {
             <Nav.Link as={Link} to="/booking" onClick={handleClose}>
               Đặt bàn
             </Nav.Link>
+            <Nav.Link as={Link} to="/member" onClick={handleClose}>
+              Thành viên
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

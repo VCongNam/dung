@@ -1,0 +1,39 @@
+.member-container {
+    margin-top: 30px;
+  }
+  
+  .member-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .customer-info {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .booking-history {
+    margin-top: 20px;
+  }
+  
+  .booking-table {
+    margin-top: 20px;
+  }
+  
+  .search-form .form-group {
+    margin-right: 10px;
+  }
+  
+  .search-form button {
+    margin-top: 32px;
+  }
+  
