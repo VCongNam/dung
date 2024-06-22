@@ -1,0 +1,157 @@
+/* Home.css */
+
+:root {
+    --primary-color: #D8C4B9;
+    --secondary-color: #A69081;
+    --accent-color: #8C7365;
+    --background-color: #F5F1EE;
+    --text-color: #000000;
+    --light-text-color: #666666;
+  }
+  
+  body {
+    /* font-family: 'Arial', sans-serif; */
+    /* background-color: var(--background-color); */
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  h3 {
+    text-align: center;
+    font-weight: 700;
+    /* color: var(--accent-color); */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 40px 0;
+  }
+  
+  /* Hero section */
+  .hero {
+    margin-bottom: 60px;
+  }
+  
+  /* Image Carousel section */
+  .carousel-section {
+    margin-bottom: 60px;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+    /* border-radius: 8px; */
+    overflow: hidden;
+  }
+  
+  /* About Dúng section */
+  .about-dung {
+    margin-bottom: 60px;
+    /* background-color: white; */
+    /* border-radius: 12px; */
+    /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); */
+    padding: 40px;
+  }
+  
+  .about-dung .row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  
+  .about-dung .col {
+    flex: 1;
+  }
+  
+  .about-dung img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+  }
+  
+  .about-dung img:hover {
+    transform: scale(1.05);
+  }
+  
+  .about-dung h4 {
+    margin-bottom: 20px;
+    color: var(--accent-color);
+    font-size: 24px;
+  }
+  
+  .about-dung p {
+    margin-bottom: 30px;
+    line-height: 1.8;
+    color: var(--light-text-color);
+    font-size: 16px;
+  }
+  
+  .about-dung .btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .about-dung .btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 992px) {
+    .about-dung .row {
+      flex-direction: column;
+    }
+  
+    .about-dung .col {
+      margin-bottom: 30px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    h3 {
+      font-size: 24px;
+    }
+  
+    .about-dung {
+      padding: 30px;
+    }
+  
+    .about-dung h4 {
+      font-size: 20px;
+    }
+  
+    .about-dung p {
+      font-size: 14px;
+    }
+  
+    .about-dung .btn {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .container {
+      padding: 0 15px;
+    }
+  
+    h3 {
+      font-size: 20px;
+    }
+  
+    .about-dung {
+      padding: 20px;
+    }
+  }
