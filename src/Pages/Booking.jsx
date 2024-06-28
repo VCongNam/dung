@@ -1,15 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Form, Button, Table, Alert, Modal } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Table,
+  Alert,
+  Modal,
+} from "react-bootstrap";
 import "../Pages/Css/Booking.css";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = "https://tpeqefgjvhmpmngmjvhg.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRwZXFlZmdqdmhtcG1uZ21qdmhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkxMjQ2MTgsImV4cCI6MjAzNDcwMDYxOH0.1QH8oyzrkRkidusb6dQ8ojs1h89mNLx5DrvI0ELp_Xg";
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Booking = () => {
   const [bookingDetails, setBookingDetails] = useState({
     name: "",
     phone: "",
-    people: "2", 
+    people: "2",
     date: "",
     time: "",
-    notes: ""
+    notes: "",
   });
 
   const [bookings, setBookings] = useState([]);
@@ -22,13 +38,17 @@ const Booking = () => {
   const [bookingToDelete, setBookingToDelete] = useState(null);
 
   useEffect(() => {
+    // Fetch initial bookings data
     const fetchBookings = async () => {
       try {
-        const response = await fetch('http://localhost:9999/bookings');
-        const data = await response.json();
-        setBookings(data);
+        let { data, error } = await supabase.from("bookings").select("*");
+        if (error) {
+          console.error("Error fetching booking data:", error.message);
+        } else {
+          setBookings(data);
+        }
       } catch (error) {
-        console.error('Error fetching booking data:', error);
+        console.error("Error fetching booking data:", error.message);
       }
     };
 
@@ -36,10 +56,11 @@ const Booking = () => {
   }, []);
 
   const handleChange = (e) => {
+    // Update booking details state on input change
     const { name, value } = e.target;
     setBookingDetails({
       ...bookingDetails,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -52,106 +73,123 @@ const Booking = () => {
       return;
     }
 
-    const currentDate = new Date().toISOString().split('T')[0];
+    const currentDate = new Date().toISOString().split("T")[0];
     if (bookingDetails.date < currentDate) {
       alert("Bạn không thể đặt bàn cho ngày trong quá khứ");
       return;
     }
 
     try {
-      // Prepare booking data with 'pending' status
+      // Prepare booking data with 'Chờ duyệt' status
       const newBooking = {
-        ...bookingDetails,
-        status: 'Chờ duyệt'
+        name: bookingDetails.name,
+        phone: bookingDetails.phone,
+        people: bookingDetails.people,
+        date: bookingDetails.date,
+        time: bookingDetails.time,
+        notes: bookingDetails.notes,
+        status: "Chờ duyệt", // Ensure this is correctly set
       };
 
-      const response = await fetch('http://localhost:9999/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newBooking)
-      });
+      const { data, error } = await supabase
+        .from("bookings")
+        .insert([newBooking]);
 
-      if (response.ok) {
-        console.log('Booking data saved to server successfully');
-        const savedBooking = await response.json();
-        setBookings([...bookings, savedBooking]);
-        setBookingDetails({
-          name: "",
-          phone: "",
-          people: "2", // reset to default 2 people
-          date: "",
-          time: "",
-          notes: ""
-        });
-        setSuccessMessage("Đặt bàn thành công! Chúng tôi sẽ liên hệ với bạn sớm để xác nhận.");
+      if (error) {
+        console.error("Error saving booking data:", error.message);
+      } else {
+        // Display the success message
+        setSuccessMessage(
+          "Đặt bàn thành công! Chúng tôi sẽ liên hệ với bạn sớm để xác nhận."
+        );
+
+        // Clear the success message after 5 seconds
         setTimeout(() => {
           setSuccessMessage("");
-        }, 5000); // Clear the success message after 5 seconds
-      } else {
-        console.error('Error saving booking data:', response.statusText);
+        }, 5000);
+
+        // Reload the window
+        window.location.reload();
       }
     } catch (error) {
-      console.error('Error saving booking data:', error);
+      console.error("Error saving booking data:", error.message);
     }
   };
 
   const handleSearch = () => {
-    const results = bookings.filter(booking => booking.phone === searchPhone);
+    // Filter bookings based on searchPhone
+    const results = bookings.filter((booking) => booking.phone === searchPhone);
     setFilteredBookings(results);
   };
 
   const handleEdit = (booking) => {
+    // Set up modal for editing a booking
     setEditingBooking(booking);
     setBookingDetails(booking);
     setShowEditModal(true);
   };
 
   const handleShowDeleteModal = (booking) => {
+    // Show modal to confirm deletion of a booking
     setBookingToDelete(booking);
     setShowDeleteModal(true);
   };
 
   const handleCloseDeleteModal = () => {
+    // Close modal for deleting a booking
     setBookingToDelete(null);
     setShowDeleteModal(false);
   };
 
   const confirmDelete = async () => {
+    // Confirm and delete a booking
     try {
-      const response = await fetch(`http://localhost:9999/bookings/${bookingToDelete.id}`, {
-        method: 'DELETE',
-      });
+      const { error } = await supabase
+        .from("bookings")
+        .delete()
+        .eq("id", bookingToDelete.id);
 
-      if (response.ok) {
-        console.log('Booking deleted successfully');
-        setBookings(bookings.filter(booking => booking.id !== bookingToDelete.id));
-        setFilteredBookings(filteredBookings.filter(booking => booking.id !== bookingToDelete.id));
-        setShowDeleteModal(false);
+      if (error) {
+        console.error("Error deleting booking:", error.message);
       } else {
-        console.error('Error deleting booking:', response.statusText);
+        console.log("Booking deleted successfully");
+        setBookings(
+          bookings.filter((booking) => booking.id !== bookingToDelete.id)
+        );
+        setFilteredBookings(
+          filteredBookings.filter(
+            (booking) => booking.id !== bookingToDelete.id
+          )
+        );
+        setShowDeleteModal(false);
       }
     } catch (error) {
-      console.error('Error deleting booking:', error);
+      console.error("Error deleting booking:", error.message);
     }
   };
 
   const handleUpdate = async () => {
+    // Update an existing booking
     try {
-      const response = await fetch(`http://localhost:9999/bookings/${editingBooking.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bookingDetails)
-      });
+      const { data, error } = await supabase
+        .from("bookings")
+        .update(bookingDetails)
+        .eq("id", editingBooking.id);
 
-      if (response.ok) {
-        console.log('Booking updated successfully');
-        const updatedBooking = await response.json();
-        setBookings(bookings.map(booking => booking.id === updatedBooking.id ? updatedBooking : booking));
-        setFilteredBookings(filteredBookings.map(booking => booking.id === updatedBooking.id ? updatedBooking : booking));
+      if (error) {
+        console.error("Error updating booking:", error.message);
+      } else {
+        console.log("Booking updated successfully");
+        setBookings(
+          bookings.map((booking) =>
+            booking.id === editingBooking.id ? data[0] : booking
+          )
+        );
+        setFilteredBookings(
+          filteredBookings.map((booking) =>
+            booking.id === editingBooking.id ? data[0] : booking
+          )
+        );
         setShowEditModal(false);
         setBookingDetails({
           name: "",
@@ -159,297 +197,329 @@ const Booking = () => {
           people: "2",
           date: "",
           time: "",
-          notes: ""
+          notes: "",
         });
-      } else {
-        console.error('Error updating booking:', response.statusText);
       }
     } catch (error) {
-      console.error('Error updating booking:', error);
+      console.error("Error updating booking:", error.message);
     }
   };
 
   return (
-    <Container className="booking-container">
-      <h1 className="booking-header">Đặt Bàn</h1>
-      {successMessage && <Alert variant="success">{successMessage}</Alert>}
-      <Form onSubmit={handleSubmit} className="booking-form">
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId="formName">
-              <Form.Label>Họ và tên</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={bookingDetails.name}
-                onChange={handleChange}
-                placeholder="Nhập tên của bạn"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId="formPhone">
-              <Form.Label>Số điện thoại</Form.Label>
-              <Form.Control
-                type="text"
-                name="phone"
-                value={bookingDetails.phone}
-                onChange={handleChange}
-                placeholder="Nhập số điện thoại"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId="formPeople">
-              <Form.Label>Số lượng người</Form.Label>
-              <Form.Control
-                as="select"
-                name="people"
-                value={bookingDetails.people}
-                onChange={handleChange}
-                required
-              >
-                {[...Array(29)].map((_, index) => (
-                  <option key={index + 2} value={index + 2}>
-                    {index + 2}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId="formDate">
-              <Form.Label>Ngày</Form.Label>
-              <Form.Control
-                type="date"
-                name="date"
-                value={bookingDetails.date}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId="formTime">
-              <Form.Label>Giờ</Form.Label>
-              <Form.Control
-                type="time"
-                name="time"
-                value={bookingDetails.time}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId="formNotes">
-              <Form.Label>Ghi chú</Form.Label>
-              <Form.Control
-                as="textarea"
-                name="notes"
-                value={bookingDetails.notes}
-                onChange={handleChange}
-                placeholder="Nhập ghi chú của bạn (tuỳ chọn)"
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Button variant="primary" type="submit" className="mt-3 booking-button">
-          Đặt bàn
-        </Button>
-        <h6 className="my-3">Dúng sẽ sớm liên hệ với bạn để chốt lịch đặt bàn. Chỉ khi nhận được gọi xác nhận, yêu cầu của bạn mới được coi là đặt bàn thành công. Khi nhận được cuộc gọi nhỡ từ hệ thống vui lòng liên hệ lại hotline để được hỗ trợ đặt bàn!</h6>
-      </Form>
-      <div className="search-section">
-        <h2 className="search-header">Tra cứu lịch sử đặt bàn</h2>
-        <Form className="search-form">
+    <div style={{
+      direction: 'ltr'
+  }}>
+      <Container className="booking-container">
+        <h1 className="booking-header">Đặt Bàn</h1>
+        {successMessage && <Alert variant="success">{successMessage}</Alert>}
+        <Form onSubmit={handleSubmit} className="booking-form">
           <Row>
-            <Col >
-              <Form.Group controlId="searchPhone">
+            <Col md={6}>
+              <Form.Group controlId="formName">
+                <Form.Label>Họ và tên</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  value={bookingDetails.name}
+                  onChange={handleChange}
+                  placeholder="Nhập tên của bạn"
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group controlId="formPhone">
                 <Form.Label>Số điện thoại</Form.Label>
                 <Form.Control
                   type="text"
-                  value={searchPhone}
-                  onChange={(e) => setSearchPhone(e.target.value)}
-                  placeholder="Nhập số điện thoại để tra cứu"
+                  name="phone"
+                  value={bookingDetails.phone}
+                  onChange={handleChange}
+                  placeholder="Nhập số điện thoại"
+                  required
                 />
               </Form.Group>
-              <br></br>
-              <Button variant="secondary" className="search-button" onClick={handleSearch}>
-                Tra cứu
-              </Button>
             </Col>
-          
           </Row>
+          <Row>
+            <Col md={6}>
+              <Form.Group controlId="formPeople">
+                <Form.Label>Số lượng người</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="people"
+                  value={bookingDetails.people}
+                  onChange={handleChange}
+                  required
+                >
+                  {[...Array(29)].map((_, index) => (
+                    <option key={index + 2} value={index + 2}>
+                      {index + 2}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group controlId="formDate">
+                <Form.Label>Ngày</Form.Label>
+                <Form.Control
+                  type="date"
+                  name="date"
+                  value={bookingDetails.date}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <Form.Group controlId="formTime">
+                <Form.Label>Giờ</Form.Label>
+                <Form.Control
+                  type="time"
+                  name="time"
+                  value={bookingDetails.time}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group controlId="formNotes">
+                <Form.Label>Ghi chú</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  name="notes"
+                  value={bookingDetails.notes}
+                  onChange={handleChange}
+                  placeholder="Nhập ghi chú của bạn (tuỳ chọn)"
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Button
+            variant="primary"
+            type="submit"
+            className="mt-3 booking-button"
+          >
+            Đặt bàn
+          </Button>
+          <h6 className="my-3">
+            Dúng sẽ sớm liên hệ với bạn để chốt lịch đặt bàn. Chỉ khi nhận được
+            gọi xác nhận, yêu cầu của bạn mới được coi là đặt bàn thành công.
+            Khi nhận được cuộc gọi nhỡ từ hệ thống vui lòng liên hệ lại hotline
+            để được hỗ trợ đặt bàn!
+          </h6>
         </Form>
-      </div>
-      {filteredBookings.length > 0 && (
-        <div className="table-container">
-          <h2 className="mt-3">Lịch sử đặt bàn</h2>
-          <Table striped bordered hover responsive className="booking-table mt-3">
-            <thead>
-              <tr>
-                <th>Tên người đặt</th>
-                <th>Số điện thoại</th>
-                <th>Số lượng người</th>
-                <th>Ngày</th>
-                <th>Giờ</th>
-                <th>Ghi chú</th>
-                <th>Tình trạng đặt bàn</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredBookings.map((booking, index) => (
-                <tr key={index}>
-                  <td>{booking.name}</td>
-                  <td>{booking.phone}</td>
-                  <td>{booking.people}</td>
-                  <td>{booking.date}</td>
-                  <td>{booking.time}</td>
-                  <td>{booking.notes}</td>
-                  <td>{booking.status}</td> {/* Assuming 'status' is a property of booking */}
-                  <td>
-                    {booking.status === "Chờ duyệt" && (
-                      <>
-                        <Button variant="warning" size="sm" onClick={() => handleEdit(booking)}>Sửa</Button>{' '}
-                        <Button variant="danger" size="sm" onClick={() => handleShowDeleteModal(booking)}>Xóa</Button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </div>
-      )}
-
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Sửa thông tin đặt bàn</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
+        <div className="search-container mt-4">
+          <h2 className="search-header">Tra cứu đặt bàn</h2>
+          <Form className="search-form">
             <Row>
-              <Col md={6}>
-                <Form.Group controlId="formEditName">
-                  <Form.Label>Tên người đặt</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="name"
-                    value={bookingDetails.name}
-                    onChange={handleChange}
-                    placeholder="Nhập tên của bạn"
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group controlId="formEditPhone">
+              <Col>
+                <Form.Group controlId="searchPhone">
                   <Form.Label>Số điện thoại</Form.Label>
                   <Form.Control
                     type="text"
-                    name="phone"
-                    value={bookingDetails.phone}
-                    onChange={handleChange}
-                    placeholder="Nhập số điện thoại"
-                    required
+                    value={searchPhone}
+                    onChange={(e) => setSearchPhone(e.target.value)}
+                    placeholder="Nhập số điện thoại để tra cứu"
                   />
                 </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                <Form.Group controlId="formEditPeople">
-                  <Form.Label>Số lượng người</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="people"
-                    value={bookingDetails.people}
-                    onChange={handleChange}
-                    required
-                  >
-                    {[...Array(29)].map((_, index) => (
-                      <option key={index + 2} value={index + 2}>
-                        {index + 2}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group controlId="formEditDate">
-                  <Form.Label>Ngày</Form.Label>
-                  <Form.Control
-                    type="date"
-                    name="date"
-                    value={bookingDetails.date}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                <Form.Group controlId="formEditTime">
-                  <Form.Label>Giờ</Form.Label>
-                  <Form.Control
-                    type="time"
-                    name="time"
-                    value={bookingDetails.time}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group controlId="formEditNotes">
-                  <Form.Label>Ghi chú</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    name="notes"
-                    value={bookingDetails.notes}
-                    onChange={handleChange}
-                    placeholder="Nhập ghi chú của bạn (tuỳ chọn)"
-                  />
-                </Form.Group>
+                <br></br>
+                <Button
+                  variant="secondary"
+                  className="search-button"
+                  onClick={handleSearch}
+                >
+                  Tra cứu
+                </Button>
               </Col>
             </Row>
           </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-            Hủy
-          </Button>
-          <Button variant="primary" onClick={handleUpdate}>
-            Lưu thay đổi
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </div>
+        {filteredBookings.length > 0 && (
+          <div className="table-container">
+            <h2 className="mt-3">Lịch sử đặt bàn</h2>
+            <Table
+              striped
+              bordered
+              hover
+              responsive
+              className="booking-table mt-3"
+            >
+              <thead>
+                <tr>
+                  <th>Tên người đặt</th>
+                  <th>Số điện thoại</th>
+                  <th>Số lượng người</th>
+                  <th>Ngày</th>
+                  <th>Giờ</th>
+                  <th>Ghi chú</th>
+                  <th>Tình trạng đặt bàn</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredBookings.map((booking, index) => (
+                  <tr key={index}>
+                    <td>{booking.name}</td>
+                    <td>{booking.phone}</td>
+                    <td>{booking.people}</td>
+                    <td>{booking.date}</td>
+                    <td>{booking.time}</td>
+                    <td>{booking.notes}</td>
+                    <td>{booking.status}</td>
+                    <td>
+                      {booking.status === "Chờ duyệt" && (
+                        <>
+                          <Button
+                            variant="warning"
+                            size="sm"
+                            onClick={() => handleEdit(booking)}
+                          >
+                            Sửa
+                          </Button>{" "}
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={() => handleShowDeleteModal(booking)}
+                          >
+                            Xóa
+                          </Button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        )}
 
-      <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Xác nhận xóa</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Bạn có chắc chắn muốn xóa thông tin đặt bàn này không?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDeleteModal}>
-            Hủy
-          </Button>
-          <Button variant="danger" onClick={confirmDelete}>
-            Xóa
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+        <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Sửa thông tin đặt bàn</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Row>
+                <Col md={6}>
+                  <Form.Group controlId="formEditName">
+                    <Form.Label>Tên người đặt</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="name"
+                      value={bookingDetails.name}
+                      onChange={handleChange}
+                      placeholder="Nhập tên của bạn"
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group controlId="formEditPhone">
+                    <Form.Label>Số điện thoại</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="phone"
+                      value={bookingDetails.phone}
+                      onChange={handleChange}
+                      placeholder="Nhập số điện thoại"
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <Form.Group controlId="formEditPeople">
+                    <Form.Label>Số lượng người</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="people"
+                      value={bookingDetails.people}
+                      onChange={handleChange}
+                      required
+                    >
+                      {[...Array(29)].map((_, index) => (
+                        <option key={index + 2} value={index + 2}>
+                          {index + 2}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group controlId="formEditDate">
+                    <Form.Label>Ngày</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="date"
+                      value={bookingDetails.date}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <Form.Group controlId="formEditTime">
+                    <Form.Label>Giờ</Form.Label>
+                    <Form.Control
+                      type="time"
+                      name="time"
+                      value={bookingDetails.time}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group controlId="formEditNotes">
+                    <Form.Label>Ghi chú</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      name="notes"
+                      value={bookingDetails.notes}
+                      onChange={handleChange}
+                      placeholder="Nhập ghi chú của bạn (tuỳ chọn)"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+              Hủy
+            </Button>
+            <Button variant="primary" onClick={handleUpdate}>
+              Lưu thay đổi
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Xác nhận xóa</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Bạn có chắc chắn muốn xóa thông tin đặt bàn này không?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseDeleteModal}>
+              Hủy
+            </Button>
+            <Button variant="danger" onClick={confirmDelete}>
+              Xóa
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Container>
+    </div>
   );
 };
 

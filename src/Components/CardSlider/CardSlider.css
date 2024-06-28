@@ -1,0 +1,43 @@
+.slider-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 0;
+  }
+  
+  .slide {
+    background-color: #8f0808;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 0 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 80%;
+  }
+  
+  .slide:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .slide h3 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  /* Customize the dots */
+  .slick-dots li button:before {
+    font-size: 12px;
+    color: #333;
+  }
+  
+  .slick-dots li.slick-active button:before {
+    color: #007bff;
+  }
+  
+  /* Customize the arrows */
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 24px;
+    color: #c5d6e9;
+  }

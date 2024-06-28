@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Table, Alert, Modal } from "react-bootstrap";
 import "../Pages/Css/Member.css";
+import { createClient } from "@supabase/supabase-js";
 
+const supabaseUrl = "https://tpeqefgjvhmpmngmjvhg.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRwZXFlZmdqdmhtcG1uZ21qdmhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkxMjQ2MTgsImV4cCI6MjAzNDcwMDYxOH0.1QH8oyzrkRkidusb6dQ8ojs1h89mNLx5DrvI0ELp_Xg";
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Member = () => {
   const [phone, setPhone] = useState("");
@@ -12,26 +17,40 @@ const Member = () => {
   const [editedCustomer, setEditedCustomer] = useState({
     name: "",
     phone: "",
-    address: ""
+    booking_count: 0,
+    loyalty_points: 0,
   });
 
   const handleSearch = async () => {
     try {
-      const customerResponse = await fetch(`http://localhost:9999/customers?phone=${phone}`);
-      const customerData = await customerResponse.json();
+      // Fetch customer data
+      const { data: customerData, error: customerError } = await supabase
+        .from("customers")
+        .select("*")
+        .eq("phone", phone)
+        .single();
 
-      if (customerData.length === 0) {
+      if (customerError) throw customerError;
+
+      if (customerData) {
+        setCustomer(customerData);
+        setEditedCustomer(customerData);
+        setErrorMessage("");
+
+        // Fetch booking history
+        const { data: bookingData, error: bookingError } = await supabase
+          .from("bookings")
+          .select("*")
+          .eq("phone", phone)
+          .order("date", { ascending: false });
+
+        if (bookingError) throw bookingError;
+
+        setBookingHistory(bookingData);
+      } else {
         setErrorMessage("Số điện thoại không tồn tại trong hệ thống.");
         setCustomer(null);
         setBookingHistory([]);
-      } else {
-        setCustomer(customerData[0]);
-        setEditedCustomer(customerData[0]);
-        setErrorMessage("");
-
-        const bookingResponse = await fetch(`http://localhost:9999/bookings?phone=${phone}`);
-        const bookingData = await bookingResponse.json();
-        setBookingHistory(bookingData);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -43,26 +62,21 @@ const Member = () => {
     const { name, value } = e.target;
     setEditedCustomer({
       ...editedCustomer,
-      [name]: value
+      [name]: value,
     });
   };
 
   const handleUpdateCustomer = async () => {
     try {
-      const response = await fetch(`http://localhost:9999/customers/${customer.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(editedCustomer)
-      });
+      const { data, error } = await supabase
+        .from("customers")
+        .update(editedCustomer)
+        .eq("id", customer.id);
 
-      if (response.ok) {
-        setCustomer(editedCustomer);
-        setShowEditModal(false);
-      } else {
-        console.error("Error updating customer:", response.statusText);
-      }
+      if (error) throw error;
+
+      setCustomer(editedCustomer);
+      setShowEditModal(false);
     } catch (error) {
       console.error("Error updating customer:", error);
     }
@@ -71,7 +85,11 @@ const Member = () => {
   return (
     <Container className="member-container">
       <h1 className="member-header">Tra cứu thông tin khách hàng</h1>
-      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+      {errorMessage && (
+        <Alert variant={errorMessage.includes("lỗi") ? "danger" : "warning"}>
+          {errorMessage}
+        </Alert>
+      )}
       <Form className="search-form">
         <Form.Group controlId="searchPhone">
           <Form.Label>Số điện thoại</Form.Label>
@@ -82,48 +100,56 @@ const Member = () => {
             placeholder="Nhập số điện thoại"
           />
         </Form.Group>
-        <Button variant="primary" onClick={handleSearch}>
+        <Button className="custom-button" onClick={handleSearch}>
           Tra cứu
         </Button>
       </Form>
       {customer && (
-        <div className="customer-info mt-3">
+        <div className="customer-info">
           <h2>Thông tin khách hàng</h2>
-          <p><strong>Tên:</strong> {customer.name}</p>
-          <p><strong>Số điện thoại:</strong> {customer.phone}</p>
-          <p><strong>Địa chỉ:</strong> {customer.address}</p>
-          <p><strong>Tổng số tiền đã tiêu:</strong> {customer.totalSpent} VND</p>
-          <p><strong>Điểm thành viên:</strong> {customer.points}</p>
-          <Button variant="secondary" onClick={() => setShowEditModal(true)}>
+          <p>
+            <strong>Tên:</strong> {customer.name}
+          </p>
+          <p>
+            <strong>Số điện thoại:</strong> {customer.phone}
+          </p>
+          <p>
+            <strong>Số lần đặt bàn:</strong> {customer.booking_count}
+          </p>
+          <p>
+            <strong>Điểm thành viên:</strong> {customer.loyalty_points}
+          </p>
+          <Button
+            className="custom-button"
+            onClick={() => setShowEditModal(true)}
+          >
             Cập nhật thông tin
           </Button>
         </div>
       )}
       {bookingHistory.length > 0 && (
-        <div className="booking-history mt-3">
+        <div className="booking-history">
           <h2>Lịch sử đặt bàn</h2>
-          <Table striped bordered hover responsive className="booking-table mt-3">
+          <Table striped bordered hover className="booking-table">
             <thead>
               <tr>
-                <th>Tên người đặt</th>
-                <th>Số điện thoại</th>
-                <th>Số lượng người</th>
                 <th>Ngày</th>
                 <th>Giờ</th>
+                <th>Số người</th>
                 <th>Ghi chú</th>
-                <th>Tình trạng đặt bàn</th>
+                <th>Trạng thái</th>
+                <th>Giá</th>
               </tr>
             </thead>
             <tbody>
-              {bookingHistory.map((booking, index) => (
-                <tr key={index}>
-                  <td>{booking.name}</td>
-                  <td>{booking.phone}</td>
-                  <td>{booking.people}</td>
+              {bookingHistory.map((booking) => (
+                <tr key={booking.id}>
                   <td>{booking.date}</td>
                   <td>{booking.time}</td>
+                  <td>{booking.people}</td>
                   <td>{booking.notes}</td>
                   <td>{booking.status}</td>
+                  <td>{booking.price}</td>
                 </tr>
               ))}
             </tbody>
@@ -157,12 +183,22 @@ const Member = () => {
                 required
               />
             </Form.Group>
-            <Form.Group controlId="formEditAddress">
-              <Form.Label>Địa chỉ</Form.Label>
+            <Form.Group controlId="formEditBookingCount">
+              <Form.Label>Số lần đặt bàn</Form.Label>
               <Form.Control
-                type="text"
-                name="address"
-                value={editedCustomer.address}
+                type="number"
+                name="booking_count"
+                value={editedCustomer.booking_count}
+                onChange={handleEditChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formEditLoyaltyPoints">
+              <Form.Label>Điểm thành viên</Form.Label>
+              <Form.Control
+                type="number"
+                name="loyalty_points"
+                value={editedCustomer.loyalty_points}
                 onChange={handleEditChange}
                 required
               />

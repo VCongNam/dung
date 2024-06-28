@@ -1,39 +1,144 @@
+/* Container Styles */
 .member-container {
-    margin-top: 30px;
-  }
-  
-  .member-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .customer-info {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .booking-history {
-    margin-top: 20px;
-  }
-  
-  .booking-table {
-    margin-top: 20px;
-  }
-  
-  .search-form .form-group {
-    margin-right: 10px;
-  }
-  
-  .search-form button {
-    margin-top: 32px;
-  }
-  
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Header Styles */
+.member-header {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Form Styles */
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-form .form-group {
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-form .form-control {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  background-color: #fff;
+}
+
+.custom-button {
+  background-color: #D8C4B9;
+  border-color: #D8C4B9;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-button:hover {
+  background-color: #b8a297;
+  border-color: #a28b80;
+}
+
+/* Alert Styles */
+.alert {
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 20px auto;
+}
+
+/* Customer Info Styles */
+.customer-info {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.customer-info h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.customer-info p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.customer-info strong {
+  color: #333;
+}
+
+/* Booking History Styles */
+.booking-history {
+  margin-top: 20px;
+}
+
+.booking-history h2 {
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.booking-table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.booking-table th,
+.booking-table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.booking-table th {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.booking-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Modal Styles */
+.modal-header {
+  background-color: #D8C4B9;
+  color: white;
+}
+
+.modal-title {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.modal-footer .btn-primary {
+  background-color: #D8C4B9;
+  border-color: #D8C4B9;
+  border-radius: 5px;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  border-radius: 5px;
+}

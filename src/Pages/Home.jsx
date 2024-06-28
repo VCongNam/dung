@@ -5,12 +5,14 @@ import { Row, Col, Image, Button } from "react-bootstrap";
 import home1 from "../Components/Assets/home1.jpg";
 import { Link } from "react-router-dom";
 import "../Pages/Css/Home.css";
+import AutoPlay from "../Components/CardSlider/CardSlider";
 
 const Home = () => {
   return (
     <div>
       <Hero className="hero" />
-
+     
+      <div className="carousel-section">{/* <ImageCarousel /> */}</div>
       <div className="about-dung">
         <Row>
           <h3>DÚNG - THỊT NHÚNG NƯỚC QUẢ</h3>
@@ -41,10 +43,11 @@ const Home = () => {
             </Link>
           </Col>
         </Row>
+        <Row>
         <h3>DÚNG QUA NHỮNG KHUNG HÌNH</h3>
-        <div className="carousel-section">
-          <ImageCarousel />
-        </div>
+          {" "}
+          <AutoPlay />{" "}
+        </Row>
       </div>
     </div>
   );

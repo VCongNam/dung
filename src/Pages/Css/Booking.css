@@ -11,6 +11,7 @@
   --error-color: #D9534F;
   --warning-color: #F0AD4E;
 }
+
 .booking-header {
   color: var(--text-color);
 }
@@ -24,6 +25,7 @@
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* height: 70vh; */
 }
 
 .booking-header {
@@ -95,7 +97,7 @@
 }
 
 .booking-table {
-  background-color: white;
+  background-color: var(--text-color);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -106,7 +108,7 @@
 }
 
 .booking-table th {
-  background-color: var(--main-color);
+  background-color: var(--text-color);
   color: var(--text-color);
   text-align: center;
 }
