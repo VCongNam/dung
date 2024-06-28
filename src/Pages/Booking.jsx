@@ -88,7 +88,7 @@ const Booking = () => {
         date: bookingDetails.date,
         time: bookingDetails.time,
         notes: bookingDetails.notes,
-        status: "Chờ duyệt", // Ensure this is correctly set
+        status: "Chờ duyệt",
       };
 
       const { data, error } = await supabase
@@ -98,18 +98,14 @@ const Booking = () => {
       if (error) {
         console.error("Error saving booking data:", error.message);
       } else {
-        // Display the success message
         setSuccessMessage(
           "Đặt bàn thành công! Chúng tôi sẽ liên hệ với bạn sớm để xác nhận."
         );
 
-        // Clear the success message after 5 seconds
         setTimeout(() => {
           setSuccessMessage("");
+          window.location.reload();
         }, 5000);
-
-        // Reload the window
-        window.location.reload();
       }
     } catch (error) {
       console.error("Error saving booking data:", error.message);
@@ -179,7 +175,7 @@ const Booking = () => {
       if (error) {
         console.error("Error updating booking:", error.message);
       } else {
-        console.log("Booking updated successfully");
+        // console.log("Booking updated successfully");
         setBookings(
           bookings.map((booking) =>
             booking.id === editingBooking.id ? data[0] : booking
@@ -288,7 +284,7 @@ const Booking = () => {
             </Col>
             <Col md={6}>
               <Form.Group controlId="formNotes">
-                <Form.Label>Ghi chú</Form.Label>
+                <Form.Label>Nhắn nhủ cho chúng mình</Form.Label>
                 <Form.Control
                   as="textarea"
                   name="notes"
@@ -325,6 +321,8 @@ const Booking = () => {
                     value={searchPhone}
                     onChange={(e) => setSearchPhone(e.target.value)}
                     placeholder="Nhập số điện thoại để tra cứu"
+                    // className="search-input" 
+                    // style={{ width: "100%" }}
                   />
                 </Form.Group>
                 <br></br>

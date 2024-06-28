@@ -1,144 +1,95 @@
-/* Container Styles */
 .member-container {
-  max-width: 900px;
-  margin: 0 auto;
+  margin-top: 50px;
   padding: 20px;
-  background-color: #f9f9f9;
+  margin-bottom: 50px;
+  color: var(--text-color);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+  margin-bottom: 50px;
+  background-color: #f0f0f0;
 }
 
-/* Header Styles */
 .member-header {
   text-align: center;
   margin-bottom: 30px;
-  font-size: 2.5rem;
-  color: #333;
-  font-weight: bold;
+  font-size: 32px;
+  color: var(--main-color);
 }
 
-/* Form Styles */
 .search-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-bottom: 20px;
 }
 
-.search-form .form-group {
-  margin-bottom: 15px;
-  width: 100%;
-  max-width: 500px;
+.search-form .custom-button {
+  background-color: #f0f0f0;
+  margin-top: 30px;
+  /* margin-bottom: 30px; */
+  /* border-radius: 15px; */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--accent-color); /* Custom accent color */
+  border-color: var(--accent-color);
+  color: var(--background-color); /* Custom background color */
+  transition: background-color 0.3s ease;
+  
 }
 
-.search-form .form-control {
-  width: 100%;
-  border-radius: 5px;
-  padding: 10px;
-  border: 1px solid #ced4da;
-  background-color: #fff;
+.search-form .custom-button:hover {
+  background-color: var(--hover-color); /* Custom hover color */
+  border-color: var(--border-color); /* Custom border color */
+  color: var(--text-color); /* Custom text color */
 }
 
-.custom-button {
-  background-color: #D8C4B9;
-  border-color: #D8C4B9;
-  color: white;
-  border-radius: 5px;
-  padding: 10px 20px;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.custom-button:hover {
-  background-color: #b8a297;
-  border-color: #a28b80;
-}
-
-/* Alert Styles */
-.alert {
-  text-align: center;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto 20px auto;
-}
-
-/* Customer Info Styles */
 .customer-info {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  margin-top: 30px;
 }
 
 .customer-info h2 {
-  margin-top: 0;
-  color: #333;
-  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .customer-info p {
-  font-size: 1rem;
-  color: #555;
   margin-bottom: 10px;
 }
 
-.customer-info strong {
-  color: #333;
-}
-
-/* Booking History Styles */
 .booking-history {
-  margin-top: 20px;
-}
-
-.booking-history h2 {
-  color: #333;
-  font-size: 1.5rem;
+  margin-top: 30px;
 }
 
 .booking-table {
-  width: 100%;
-  margin-top: 10px;
-  border-collapse: collapse;
+  background-color: var(
+    --secondary-background-color
+  ); /* Custom secondary background color */
+  color: var(--text-color); /* Custom text color */
 }
 
 .booking-table th,
 .booking-table td {
-  text-align: center;
   vertical-align: middle;
-  padding: 10px;
-  border: 1px solid #ddd;
+  text-align: center;
 }
 
 .booking-table th {
-  background-color: #f8f9fa;
-  color: #333;
+  background-color: var(--main-color); /* Custom main color */
+  color: var(--background-color); /* Custom background color */
 }
 
 .booking-table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: var(--hover-color); /* Custom hover color */
 }
 
-/* Modal Styles */
-.modal-header {
-  background-color: #D8C4B9;
-  color: white;
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header,
+.modal-footer {
+  border: none;
 }
 
 .modal-title {
-  margin: 0;
-  line-height: 1.5;
+  font-size: 24px;
 }
 
-.modal-footer .btn-primary {
-  background-color: #D8C4B9;
-  border-color: #D8C4B9;
-  border-radius: 5px;
-}
-
-.modal-footer .btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
+.modal-footer .btn {
   border-radius: 5px;
 }

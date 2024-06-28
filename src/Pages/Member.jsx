@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Table, Alert, Modal } from "react-bootstrap";
-import "../Pages/Css/Member.css";
 import { createClient } from "@supabase/supabase-js";
+import "../Pages/Css/Member.css";
 
 const supabaseUrl = "https://tpeqefgjvhmpmngmjvhg.supabase.co";
 const supabaseKey =
@@ -120,7 +120,7 @@ const Member = () => {
             <strong>Điểm thành viên:</strong> {customer.loyalty_points}
           </p>
           <Button
-            className="custom-button"
+            className="custom-button" variant="secondary"
             onClick={() => setShowEditModal(true)}
           >
             Cập nhật thông tin
@@ -193,23 +193,13 @@ const Member = () => {
                 required
               />
             </Form.Group>
-            <Form.Group controlId="formEditLoyaltyPoints">
-              <Form.Label>Điểm thành viên</Form.Label>
-              <Form.Control
-                type="number"
-                name="loyalty_points"
-                value={editedCustomer.loyalty_points}
-                onChange={handleEditChange}
-                required
-              />
-            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-            Hủy
+            Đóng
           </Button>
-          <Button variant="primary" onClick={handleUpdateCustomer}>
+          <Button variant="secondary" className="custom-button" onClick={handleUpdateCustomer}>
             Lưu thay đổi
           </Button>
         </Modal.Footer>
