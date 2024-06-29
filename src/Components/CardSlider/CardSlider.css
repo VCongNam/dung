@@ -5,8 +5,8 @@
   }
   
   .slide {
-    background-color: #8f0808;
-    border: 1px solid #dddddd;
+    /* background-color: #8f0808; */
+    /* border: 1px solid #dddddd; */
     border-radius: 8px;
     padding: 20px;
     margin: 0 10px;
@@ -20,9 +20,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .slide h3 {
-    font-size: 24px;
-    color: #333;
+  .slide img {
+    width: 100%; /* Ensure images fill their container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the entire area of the slide */
+    border-radius: 8px; /* Optional: Add rounded corners to images */
   }
   
   /* Customize the dots */

@@ -165,17 +165,23 @@ const Booking = () => {
   };
 
   const handleUpdate = async () => {
-    // Update an existing booking
+    // console.log("Booking details:", bookingDetails);
+    // console.log("Editing booking ID:", editingBooking.id);
+  
     try {
       const { data, error } = await supabase
         .from("bookings")
         .update(bookingDetails)
-        .eq("id", editingBooking.id);
-
+        .eq("id", editingBooking.id)
+        .select();
+  
       if (error) {
         console.error("Error updating booking:", error.message);
+      } else if (!data || data.length === 0) {
+        console.error("No booking found with the specified ID.");
       } else {
-        // console.log("Booking updated successfully");
+        console.log("Booking updated successfully:", data);
+  
         setBookings(
           bookings.map((booking) =>
             booking.id === editingBooking.id ? data[0] : booking
@@ -195,11 +201,17 @@ const Booking = () => {
           time: "",
           notes: "",
         });
+  
+        setSuccessMessage("Thông tin đặt bàn được cập nhật thành công!");
+        setTimeout(() => setSuccessMessage(""), 3000);
       }
     } catch (error) {
       console.error("Error updating booking:", error.message);
     }
   };
+  
+  
+  
 
   return (
     <div style={{
@@ -321,8 +333,7 @@ const Booking = () => {
                     value={searchPhone}
                     onChange={(e) => setSearchPhone(e.target.value)}
                     placeholder="Nhập số điện thoại để tra cứu"
-                    // className="search-input" 
-                    // style={{ width: "100%" }}
+                   
                   />
                 </Form.Group>
                 <br></br>

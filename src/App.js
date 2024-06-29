@@ -1,19 +1,55 @@
-import "./App.css";
+// App.js
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import Home from "./Pages/Home";
-import AboutUs from "./Pages/AboutUs"; 
-// import Products from "./Pages/Products";
-import Header from "../src/Components/Navbar/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./Pages/Home";
+import AboutUs from "./Pages/AboutUs";
+import Header from "./Components/Navbar/Header";
 import Footer from "./Components/Footer/Footer";
 import Booking from "./Pages/Booking";
 import Menu from "./Pages/Menu";
 import Member from "./Pages/Member";
+import { createClient } from "@supabase/supabase-js";
+import { messaging, requestPermission, onMessageListener } from "./services/firebaseConfig";
+import { supabase } from "./services/supabaseConfig";
 
-function App() {
+const App = () => {
+  const [token, setToken] = useState(null);
+  const [notification, setNotification] = useState(null);
+
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await requestPermission();
+      if (token) {
+        setToken(token);
+        // Gửi token này lên Supabase để lưu trữ
+        saveFcmToken(token);
+      }
+    };
+
+    const saveFcmToken = async (token) => {
+      const { data, error } = await supabase.from("fcm_tokens").insert([{ token }]);
+      if (error) {
+        console.error("Error saving FCM token: ", error);
+      } else {
+        console.log("FCM token saved: ", data);
+      }
+    };
+
+    getToken();
+
+    const messageListener = onMessageListener().then((payload) => {
+      setNotification(payload);
+      console.log("Notification received: ", payload);
+    });
+
+    return () => {
+      messageListener.then((listener) => listener());
+    };
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -22,13 +58,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/aboutDung" element={<AboutUs />} />
           <Route path="/booking" element={<Booking />} />
-          <Route path="/menu" element={<Menu/>} />
-          <Route path="/member" element={<Member/>} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/member" element={<Member />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;

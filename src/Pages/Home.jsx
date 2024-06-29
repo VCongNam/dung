@@ -1,6 +1,5 @@
 import React from "react";
 import Hero from "../Components/Hero/Hero";
-import ImageCarousel from "../Components/Carousel/Carousel";
 import { Row, Col, Image, Button } from "react-bootstrap";
 import home1 from "../Components/Assets/home1.jpg";
 import { Link } from "react-router-dom";
@@ -11,15 +10,13 @@ const Home = () => {
   return (
     <div>
       <Hero className="hero" />
-     
-      <div className="carousel-section">{/* <ImageCarousel /> */}</div>
       <div className="about-dung">
-        <Row>
+        <Row className="mt-5">
           <h3>DÚNG - THỊT NHÚNG NƯỚC QUẢ</h3>
         </Row>
         <Row>
           <Col>
-            <Image className="h-40" src={home1} thumbnail />
+            <Image  src={home1} thumbnail />
           </Col>
           <Col>
             <h4>Chúng tôi là Dúng</h4>
@@ -43,7 +40,8 @@ const Home = () => {
             </Link>
           </Col>
         </Row>
-        <Row>
+
+        <Row className="my-5">
         <h3>DÚNG QUA NHỮNG KHUNG HÌNH</h3>
           {" "}
           <AutoPlay />{" "}
