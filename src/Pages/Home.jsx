@@ -8,7 +8,7 @@ import AutoPlay from "../Components/CardSlider/CardSlider";
 
 const Home = () => {
   return (
-    <div>
+    <div style={{ fontFamily: 'DFVN Grafika, sans-serif' }}>
       <Hero className="hero" />
       <div className="about-dung">
         <Row className="mt-5">
@@ -21,19 +21,7 @@ const Home = () => {
           <Col>
             <h4>Chúng tôi là Dúng</h4>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-              illum, nesciunt aspernatur, id aut beatae reiciendis pariatur
-              iste, voluptates aliquid iusto cum ex deleniti quidem voluptate
-              molestiae veritatis eaque corrupti odio rem quis laborum itaque
-              quisquam? Odio, harum, soluta repellat consectetur exercitationem
-              aliquid nihil ratione architecto recusandae dicta odit ut
-              voluptates quas voluptatibus ad delectus quos quis consequuntur
-              vero ducimus fugiat? Odit tempora facere repudiandae doloribus
-              laudantium ratione impedit deleniti laboriosam illum? Sint
-              similique soluta quam harum laudantium, iusto dolores culpa cum,
-              accusamus, recusandae veniam ipsam illum voluptatem! Animi
-              recusandae amet quidem impedit officia unde dolore rem officiis
-              minus nulla!
+             Đây là một văn bản tiếng việt để test xem có bị khó đọc không
             </p>
             <Link to="/aboutDung">
               <Button className="btn">Tìm hiểu thêm về Dúng</Button>

@@ -19,7 +19,7 @@ function BasicExample() {
   };
 
   return (
-    <Navbar expanded={expanded} expand="lg" style={{ backgroundColor: "#D8C4B9" }}>
+    <Navbar expanded={expanded} expand="lg" style={{ backgroundColor: "#D8C4B9", fontFamily: 'DFVN Grafika' }}>
       <Container fluid="md">
         <NavLink as={Link} to="/">
         <Navbar.Brand>
