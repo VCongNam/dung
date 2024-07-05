@@ -10,13 +10,8 @@ import {
   Modal,
 } from "react-bootstrap";
 import "../Pages/Css/Booking.css";
-import { createClient } from "@supabase/supabase-js";
+import supabase from '../services/supabaseConfig'; // Import supabase client
 
-const supabaseUrl = "https://tpeqefgjvhmpmngmjvhg.supabase.co";
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRwZXFlZmdqdmhtcG1uZ21qdmhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTkxMjQ2MTgsImV4cCI6MjAzNDcwMDYxOH0.1QH8oyzrkRkidusb6dQ8ojs1h89mNLx5DrvI0ELp_Xg";
-
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Booking = () => {
   const [bookingDetails, setBookingDetails] = useState({
@@ -167,21 +162,21 @@ const Booking = () => {
   const handleUpdate = async () => {
     // console.log("Booking details:", bookingDetails);
     // console.log("Editing booking ID:", editingBooking.id);
-  
+
     try {
       const { data, error } = await supabase
         .from("bookings")
         .update(bookingDetails)
         .eq("id", editingBooking.id)
         .select();
-  
+
       if (error) {
         console.error("Error updating booking:", error.message);
       } else if (!data || data.length === 0) {
         console.error("No booking found with the specified ID.");
       } else {
         console.log("Booking updated successfully:", data);
-  
+
         setBookings(
           bookings.map((booking) =>
             booking.id === editingBooking.id ? data[0] : booking
@@ -201,7 +196,7 @@ const Booking = () => {
           time: "",
           notes: "",
         });
-  
+
         setSuccessMessage("Thông tin đặt bàn được cập nhật thành công!");
         setTimeout(() => setSuccessMessage(""), 3000);
       }
@@ -209,15 +204,12 @@ const Booking = () => {
       console.error("Error updating booking:", error.message);
     }
   };
-  
-  
-  
 
   return (
-    <div style={{
-      direction: 'ltr'
-  }}>
-      <Container className="booking-container">
+    <div
+      
+    >
+      <Container className="booking-container" style={{fontFamily: "Roboto Mono"}}>
         <h1 className="booking-header">Đặt Bàn</h1>
         {successMessage && <Alert variant="success">{successMessage}</Alert>}
         <Form onSubmit={handleSubmit} className="booking-form">
@@ -333,7 +325,6 @@ const Booking = () => {
                     value={searchPhone}
                     onChange={(e) => setSearchPhone(e.target.value)}
                     placeholder="Nhập số điện thoại để tra cứu"
-                   
                   />
                 </Form.Group>
                 <br></br>

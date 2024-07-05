@@ -22,6 +22,8 @@
 .search-header {
   color: var(--secondary-text-color);
   font-size: 28px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
 .booking-container {

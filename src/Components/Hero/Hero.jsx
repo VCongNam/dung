@@ -11,13 +11,11 @@ const Hero = () => {
         <Row>
           <Col className="hero-text">
             <h1>Dúng xin chào bạn.</h1>
-            <p style={{textAlign:"justify"}}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-              natus quae eaque sunt expedita neque impedit incidunt repellendus
-              vel reiciendis.
+            <p style={{textAlign:"justify",fontFamily: "Roboto Mono"}}>
+              
             </p>
             <Link to="/menu">
-              <Button variant="dark">Go to Menu</Button>
+              <Button style={{fontFamily: "Roboto Mono"}} variant="dark">Tham khảo Menu</Button>
             </Link>
           </Col>
           <Col></Col>

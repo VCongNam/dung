@@ -13,10 +13,10 @@ const AboutUs = () => {
       <Container fluid="md" className="my-5">
         {/* Cau chuyen thuong hieu */}
         <Row className="mb-4">
-          <h1 className="section-title">Câu chuyện thương hiệu</h1>
+          <h1 className="section-title my-2">Câu chuyện thương hiệu</h1>
         </Row>
 
-        <Row className="mb-5">
+        <Row>
           <Col md={7}>
             <p className="text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo magni
@@ -46,9 +46,17 @@ const AboutUs = () => {
 
         {/* Nguon nguyen lieu */}
         <Row className="mb-4">
-          <h1 className="section-title">Nguồn nguyên liệu</h1>
+          <h1 className="section-title my-2">Nguồn nguyên liệu</h1>
         </Row>
         <Row>
+          <Col>
+            <img
+              className="ingredient-image"
+              src={nguyenlieu}
+              alt="Nguyen lieu"
+              loading="lazy"
+            />
+          </Col>
           <Col md={7}>
             <p className="text">
               Nồi nước dùng cầu kỳ không chỉ bởi hậu vị thanh ngọt mà còn ở khâu
@@ -69,19 +77,11 @@ const AboutUs = () => {
               hương vị chua khác nhau
             </p>
           </Col>
-          <Col>
-            <img
-              className="ingredient-image"
-              src={nguyenlieu}
-              alt="Nguyen lieu"
-              loading="lazy"
-            />
-          </Col>
         </Row>
 
         {/* Gia tri cot loi */}
         <Row className="mb-4">
-          <h1 className="section-title">Giá trị cốt lõi</h1>
+          <h1 className="section-title my-2">Giá trị cốt lõi</h1>
         </Row>
         <Row>
           <Col md={8}>
@@ -119,10 +119,10 @@ const AboutUs = () => {
             possimus esse ipsum, accusamus, doloremque nesciunt, amet aperiam.
             Soluta distinctio non nemo!
           </p>
-          <Col md={6}>
+          <Col md={6} className="my-2">
             <img className="GTCL1" src={GTCL1} alt="GTCL" loading="lazy" />
           </Col>
-          <Col md={6}>
+          <Col md={6} className="my-2">
             <img className="GTCL1" src={GTCL1} alt="GTCL" loading="lazy" />
           </Col>
         </Row>
@@ -143,8 +143,9 @@ const AboutUs = () => {
           </p>
         </Row>
 
+        {/* Noi bat cam hung */}
         <Row className="mb-4">
-          <h1 className="section-title">Nổi bật - Cảm hứng</h1>
+          <h1 className="section-title my-2">Nổi bật - Cảm hứng</h1>
         </Row>
         <Row>
           <Col md={7}>
@@ -176,6 +177,72 @@ const AboutUs = () => {
               src={nguyenlieu}
               alt="Nguyen lieu"
               loading="lazy"
+            />
+          </Col>
+        </Row>
+
+{/* Nha lam */}
+        <Row className="mb-4">
+          <h1 className="section-title my-2">Nhà làm</h1>
+        </Row>
+
+        <Row>
+          <Col md={7}>
+            <p className="text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo magni
+              esse enim cumque mollitia voluptatum voluptatem. Maxime iusto
+              ipsa, distinctio expedita ipsum exercitationem alias facilis,
+              pariatur beatae rerum tenetur totam maiores consequatur sed
+              cupiditate? Atque, asperiores dolor quod corrupti laborum eligendi
+              fuga aut eum beatae reiciendis quasi necessitatibus praesentium
+              dignissimos accusantium provident, eveniet hic corporis tempora
+              incidunt! Quia deserunt id eos iste repudiandae excepturi, aperiam
+              fugit eligendi, sint cupiditate ipsam, ipsa quis nisi! Dolorum,
+              aperiam quibusdam? Voluptates sapiente esse maxime perspiciatis
+              nam maiores, vel amet est itaque nihil exercitationem quasi quis
+              corporis voluptatum? Doloribus quas tempore voluptates
+              accusantium, odio numquam!
+            </p>
+          </Col>
+          <Col>
+            {" "}
+            <img
+              className="ingredient-image"
+              src={nguyenlieu}
+              alt="Nguyen lieu"
+            />
+          </Col>
+        </Row>
+
+{/* Sự chăm sóc */}
+<Row className="mb-4">
+          <h1 className="section-title my-2">Sự chăm sóc</h1>
+        </Row>
+
+        <Row>
+          <Col md={7}>
+            <p className="text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo magni
+              esse enim cumque mollitia voluptatum voluptatem. Maxime iusto
+              ipsa, distinctio expedita ipsum exercitationem alias facilis,
+              pariatur beatae rerum tenetur totam maiores consequatur sed
+              cupiditate? Atque, asperiores dolor quod corrupti laborum eligendi
+              fuga aut eum beatae reiciendis quasi necessitatibus praesentium
+              dignissimos accusantium provident, eveniet hic corporis tempora
+              incidunt! Quia deserunt id eos iste repudiandae excepturi, aperiam
+              fugit eligendi, sint cupiditate ipsam, ipsa quis nisi! Dolorum,
+              aperiam quibusdam? Voluptates sapiente esse maxime perspiciatis
+              nam maiores, vel amet est itaque nihil exercitationem quasi quis
+              corporis voluptatum? Doloribus quas tempore voluptates
+              accusantium, odio numquam!
+            </p>
+          </Col>
+          <Col>
+            {" "}
+            <img
+              className="ingredient-image"
+              src={nguyenlieu}
+              alt="Nguyen lieu"
             />
           </Col>
         </Row>

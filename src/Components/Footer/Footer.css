@@ -53,6 +53,7 @@
 
 .contact-item {
   margin: 5px 0;
+  font-family: 'Roboto Mono', monospace;
 }
 .link.header {
   font-weight: bold;
