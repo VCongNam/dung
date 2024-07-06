@@ -28,18 +28,10 @@
     letter-spacing: 2px;
     margin: 40px 0;
   }
-  
-  /* Hero section */
 
-  /* Image Carousel section */
-  
-  
-  /* About Dúng section */
   .about-dung {
     margin-bottom: 60px;
-    /* background-color: white; */
-    /* border-radius: 12px; */
-    /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); */
+
     padding: 40px;
   }
   
@@ -145,3 +137,33 @@
       padding: 20px;
     }
   }
+
+  /* feedback.css */
+
+  /* Home.css */
+
+/* Home.css */
+
+
+.gallery-image {
+  width: 100%; /* Chiếm đầy đủ chiều rộng của cột */
+  max-width: 450px; /* Đặt kích thước cố định tối đa cho hình ảnh */
+  height: auto; /* Tự động điều chỉnh chiều cao để duy trì tỷ lệ */
+  object-fit: cover; /* Đảm bảo hình ảnh phủ đầy khung chứa */
+  border-radius: 5px; /* Bo tròn góc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng cho hình ảnh */
+  display: block;
+  margin: 0 auto; /* Căn giữa hình ảnh */
+}
+-row {
+  display: flex;
+  justify-content: center; /* Căn giữa các phần tử con theo chiều ngang */
+  align-items: center; /* Căn giữa các phần tử con theo chiều dọc */
+  flex-wrap: wrap; /* Đảm bảo các cột được bọc lại nếu vượt quá chiều rộng của hàng */
+}
+
+.image-col {
+  display: flex;
+  justify-content: center; /* Căn giữa hình ảnh bên trong cột */
+  align-items: center; /* Căn giữa hình ảnh bên trong cột */
+}
