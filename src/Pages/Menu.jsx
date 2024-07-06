@@ -32,13 +32,14 @@ const Menu = () => {
 
   const renderMenuItems = (category) => {
     return dataMenu
+      .filter(item => selectedCategories.length === 0 || selectedCategories.includes(item.category))
       .filter(item => item.category === category)
       .map(item => (
         <Col key={item.id} xs={12} md={6} lg={4}>
           <Card className="menu-item mb-4">
             <Card.Body style={{fontFamily: "Roboto Mono"}}>
               <Card.Title>{item.name}</Card.Title>
-              {item.price && <Card.Text>Price: {item.price}</Card.Text>}
+              {item.price && <Card.Text>Giá tiền: {item.price}</Card.Text>}
               {item.notes && <Card.Text>{item.notes.split("\n").map((note, index) => (
                 <span key={index}>{note}<br /></span>
               ))}</Card.Text>}
@@ -48,9 +49,10 @@ const Menu = () => {
       ));
   };
 
-  const filteredMenu = selectedCategories.length === 0
-    ? dataMenu
-    : dataMenu.filter(item => selectedCategories.includes(item.category));
+  const hasItemsInCategory = (category) => {
+    return dataMenu.some(item => selectedCategories.length === 0 || selectedCategories.includes(item.category)) &&
+           dataMenu.some(item => item.category === category);
+  };
 
   return (
     <div>
@@ -92,11 +94,13 @@ const Menu = () => {
           </Col>
           <Col xs={12} md={8}>
             <Row>
-              {filteredMenu.length > 0 && categories.map(category => (
-                <React.Fragment key={category}>
-                  <h3>{category}</h3>
-                  <Row>{renderMenuItems(category)}</Row>
-                </React.Fragment>
+              {categories.map(category => (
+                hasItemsInCategory(category) && (
+                  <React.Fragment key={category}>
+                    <h3>{category}</h3>
+                    <Row>{renderMenuItems(category)}</Row>
+                  </React.Fragment>
+                )
               ))}
             </Row>
           </Col>
