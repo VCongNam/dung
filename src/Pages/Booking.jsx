@@ -6,12 +6,10 @@ import {
   Form,
   Button,
   Table,
-  Alert,
   Modal,
 } from "react-bootstrap";
 import "../Pages/Css/Booking.css";
-import supabase from '../services/supabaseConfig'; // Import supabase client
-
+import supabase from "../services/supabaseConfig"; // Import supabase client
 
 const Booking = () => {
   const [bookingDetails, setBookingDetails] = useState({
@@ -26,11 +24,11 @@ const Booking = () => {
   const [bookings, setBookings] = useState([]);
   const [searchPhone, setSearchPhone] = useState("");
   const [filteredBookings, setFilteredBookings] = useState([]);
-  const [successMessage, setSuccessMessage] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingBooking, setEditingBooking] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [bookingToDelete, setBookingToDelete] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
     // Fetch initial bookings data
@@ -93,14 +91,12 @@ const Booking = () => {
       if (error) {
         console.error("Error saving booking data:", error.message);
       } else {
-        setSuccessMessage(
-          "Đặt bàn thành công! Chúng tôi sẽ liên hệ với bạn sớm để xác nhận."
-        );
+        setShowSuccessModal(true);
 
         setTimeout(() => {
-          setSuccessMessage("");
+          setShowSuccessModal(false);
           window.location.reload();
-        }, 5000);
+        }, 3000);
       }
     } catch (error) {
       console.error("Error saving booking data:", error.message);
@@ -197,8 +193,8 @@ const Booking = () => {
           notes: "",
         });
 
-        setSuccessMessage("Thông tin đặt bàn được cập nhật thành công!");
-        setTimeout(() => setSuccessMessage(""), 3000);
+        setShowSuccessModal(true);
+        setTimeout(() => setShowSuccessModal(false), 3000);
       }
     } catch (error) {
       console.error("Error updating booking:", error.message);
@@ -206,12 +202,12 @@ const Booking = () => {
   };
 
   return (
-    <div
-      
-    >
-      <Container className="booking-container" style={{fontFamily: "Roboto Mono"}}>
+    <div>
+      <Container
+        className="booking-container"
+        style={{ fontFamily: "Roboto Mono" }}
+      >
         <h1 className="booking-header">Đặt Bàn</h1>
-        {successMessage && <Alert variant="success">{successMessage}</Alert>}
         <Form onSubmit={handleSubmit} className="booking-form">
           <Row>
             <Col md={6}>
@@ -397,7 +393,24 @@ const Booking = () => {
             </Table>
           </div>
         )}
-
+        {/* Modal thông báo thành công */}
+        <Modal
+          show={showSuccessModal}
+          onHide={() => setShowSuccessModal(false)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Đặt bàn thành công!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Chúng tôi sẽ liên lạc với bạn để xác nhận.</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setShowSuccessModal(false)}
+            >
+              Đóng
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
           <Modal.Header closeButton>
             <Modal.Title>Sửa thông tin đặt bàn</Modal.Title>
