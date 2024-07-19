@@ -1,23 +1,25 @@
 .menu-item {
-    background-color: #2c2c54;
-    color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    /* font-family: 'DFVN Grafika', sans-serif; Make sure to import your custom font */
-  }
-  
-  .menu-item h5 {
-    border-bottom: 2px solid #fff;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .menu-item p {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  
-  .menu-item .highlight {
-    color: #f00;
-  }
-  
+  background-color: #2c2c54;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  font-family: "Comfortaa", sans-serif;
+}
+
+.menu-item h5 {
+  border-bottom: 2px solid #fff;
+  padding-bottom: 10px;
+  margin-bottom: 15px;font-family: "Comfortaa", sans-serif;
+}
+
+.menu-item p {
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: "Comfortaa", sans-serif;
+}
+
+
+
+.menu{
+  font-family: "Comfortaa", sans-serif;
+}

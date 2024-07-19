@@ -1,13 +1,64 @@
+"use client";
 import React from "react";
-import PhotoAlbum from "react-photo-album";
-import fb1 from "../Assets/fb1.png";
-import fb2 from "../Assets/fb2.png";
+import view1 from "../Assets/view1.jpg";
+import view2 from "../Assets/view2.jpg";
+import view3 from "../Assets/view3.jpg";
+import view4 from "../Assets/view4.jpg";
+import view5 from "../Assets/view5.jpg";
+import view6 from "../Assets/view6.jpg";
+import view7 from "../Assets/view7.jpg";
+import view8 from "../Assets/view8.jpg";
+import { ImageGallery } from "react-image-grid-gallery";
+import "./Album.css"; // Add this line
 
-const photos = [
-  { src: {fb1}, width: 800, height: 600 },
-  { src: {fb2}, width: 1600, height: 900 },
+const imagesArray = [
+  {
+    src: view1,
+    alt: "view1",
+  },
+  {
+    src: view2,
+    alt: "view2",
+  },
+  {
+    src: view3,
+    alt: "view3",
+  },
+
+  {
+    src: view4,
+    alt: "view4",
+  },
+  {
+    src: view5,
+    alt: "view5",
+  },
+  {
+    src: view6,
+    alt: "view6",
+  },
+  {
+    src: view7,
+    alt: "view7",
+  },
+
+  {
+    src: view8,
+    alt: "view8",
+  },
 ];
 
-export default function Gallery() {
-  return <PhotoAlbum layout="rows" photos={photos} />;
+function View() {
+  return (
+    <div className="image-gallery-container">
+      <ImageGallery
+        imagesInfoArray={imagesArray}
+        columnCount={"auto"}
+        columnWidth={230}
+        gapSize={24}
+        className="image-gallery-grid"
+      />
+    </div>
+  );
 }
+export default View;

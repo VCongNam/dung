@@ -1,12 +1,9 @@
 .slider-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 40px 0;
+    width: 90%;
+    margin: auto;
   }
   
   .slide {
-    /* background-color: #8f0808; */
-    /* border: 1px solid #dddddd; */
     border-radius: 8px;
     padding: 20px;
     margin: 0 10px;
@@ -24,7 +21,7 @@
     width: 100%; /* Ensure images fill their container */
     height: auto; /* Maintain aspect ratio */
     object-fit: cover; /* Cover the entire area of the slide */
-    border-radius: 8px; /* Optional: Add rounded corners to images */
+    border-radius: 10px; /* Optional: Add rounded corners to images */
   }
   
   /* Customize the dots */
@@ -34,7 +31,7 @@
   }
   
   .slick-dots li.slick-active button:before {
-    color: #007bff;
+    color: #040e3a;
   }
   
   /* Customize the arrows */

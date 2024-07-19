@@ -2,6 +2,7 @@
     background-color: #D8C4B9;
     color: black;
     padding: 20px 0;
+    font-family: "Comfortaa", sans-serif;
   }
 
 
@@ -53,15 +54,11 @@
 
 .contact-item {
   margin: 5px 0;
-  font-family: 'Roboto Mono', monospace;
 }
 .link.header {
   font-weight: bold;
 }
 
-.social-icons {
-  display: flex;
-}
 
 .social-icon {
   font-size: 1.5rem;

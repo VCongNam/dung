@@ -7,24 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  font-family: 'DFVN Grafika';
-}
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'DFVN Grafika';
-}
 
 /* index.css hoặc App.css */
 html, body, #root {
   height: 100%;
   margin: 0;
+  
 }
 
-
-@font-face {
-  font-family: 'DFVN Grafika';
-  src: url('./DFVN\ Grafika.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}

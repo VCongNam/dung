@@ -15,7 +15,10 @@ const Hero = () => {
               
             </p>
             <Link to="/menu">
-              <Button style={{fontFamily: "Roboto Mono"}} variant="dark">Tham khảo Menu</Button>
+              <Button style={{marginRight: "10px", marginBottom: "10px"}} variant="dark">Tham khảo Menu</Button>
+            </Link>
+            <Link to="/booking">
+              <Button style={{ marginBottom: "10px"}} variant="dark">Đặt bàn</Button>
             </Link>
           </Col>
           <Col></Col>

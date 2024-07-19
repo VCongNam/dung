@@ -64,6 +64,7 @@ const Member = () => {
 
   const handleUpdateCustomer = async () => {
     try {
+      // eslint-disable-next-line
       const { data, error } = await supabase
         .from("customers")
         .update(editedCustomer)
@@ -90,30 +91,29 @@ const Member = () => {
         <Form.Group controlId="searchPhone">
           <Form.Label>Số điện thoại</Form.Label>
           <Form.Control
-          style={{fontFamily: "Roboto Mono"}}
             type="text"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="Nhập số điện thoại"
           />
         </Form.Group>
-        <Button className="custom-button"  style={{fontFamily: "Roboto Mono"}} onClick={handleSearch}>
+        <Button className="custom-button"   onClick={handleSearch}>
           Tra cứu
         </Button>
       </Form>
       {customer && (
         <div className="customer-info">
           <h2>Thông tin khách hàng</h2>
-          <p style={{fontFamily: "Roboto Mono"}}>
+          <p >
             <strong>Tên:</strong> {customer.name}
           </p>
-          <p style={{fontFamily: "Roboto Mono"}}>
+          <p >
             <strong>Số điện thoại:</strong> {customer.phone}
           </p>
-          <p style={{fontFamily: "Roboto Mono"}}>
+          <p >
             <strong>Số lần đặt bàn:</strong> {customer.booking_count}
           </p>
-          <p style={{fontFamily: "Roboto Mono"}}>
+          <p >
             <strong>Điểm thành viên:</strong> {customer.loyalty_points}
           </p>
           <Button
@@ -140,7 +140,7 @@ const Member = () => {
             </thead>
             <tbody>
               {bookingHistory.map((booking) => (
-                <tr key={booking.id} style={{fontFamily: "Roboto Mono"}}>
+                <tr key={booking.id}  >
                   <td>{booking.date}</td>
                   <td>{booking.time}</td>
                   <td>{booking.people}</td>

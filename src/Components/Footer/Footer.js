@@ -18,11 +18,11 @@ const Footer = () => {
             <p className="contact-item">Hotline: 0986 610 910</p>
             <p className="contact-item">Email: dunglendungxuong@gmail.com</p>
           </Col>
-          <Col md={3} className="d-flex flex-column align-items-end">
-            <p style={{ fontFamily: "Roboto Mono" }}>
+          <Col md={3} className="d-flex flex-column align-items-sm-start align-items-md-end justify-content-sm-start justify-content-md-end">
+            <p >
               @2023 Dúng, All Rights Reserved
             </p>
-            <p style={{ fontFamily: "Roboto Mono" }} className="link header">
+            <p  className="link header">
               Theo dõi Dúng
             </p>
             <div className="social-icons">
@@ -44,9 +44,6 @@ const Footer = () => {
               </a>
             </div>
           </Col>
-        </Row>
-        <Row className="copyright">
-          <Col></Col>
         </Row>
       </Container>
     </footer>
