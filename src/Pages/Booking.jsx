@@ -63,7 +63,7 @@ const Booking = () => {
     // Validate booking details
     if (parseInt(bookingDetails.people) <= 0) {
       alert("Số lượng người phải lớn hơn 0");
-      
+
       return;
     }
 
@@ -74,8 +74,12 @@ const Booking = () => {
     }
 
     try {
+      const generateRandomId = () => {
+        return Math.random().toString(36).substr(2, 8);
+      };
       // Prepare booking data with 'Chờ duyệt' status
       const newBooking = {
+        id: generateRandomId(),
         name: bookingDetails.name,
         phone: bookingDetails.phone,
         people: bookingDetails.people,
@@ -84,7 +88,7 @@ const Booking = () => {
         notes: bookingDetails.notes,
         status: "Chờ duyệt",
       };
-// eslint-disable-next-line
+      // eslint-disable-next-line
       const { data, error } = await supabase
         .from("bookings")
         .insert([newBooking]);
@@ -203,11 +207,8 @@ const Booking = () => {
   };
 
   return (
-    <div> 
-      <Container
-        className="booking-container"
-        
-      >
+    <div>
+      <Container className="booking-container">
         <h1 className="booking-header">Đặt Bàn</h1>
         <Form onSubmit={handleSubmit} className="booking-form">
           <Row>
@@ -402,7 +403,10 @@ const Booking = () => {
           <Modal.Header closeButton>
             <Modal.Title>Đặt bàn thành công!</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Cảm ơn bạn đã đặt bàn tại Dúng. Chúng mình sẽ sớm liên lạc với bạn để xác nhận.</Modal.Body>
+          <Modal.Body>
+            Cảm ơn bạn đã đặt bàn tại Dúng. Chúng mình sẽ sớm liên lạc với bạn
+            để xác nhận.
+          </Modal.Body>
           <Modal.Footer>
             <Button
               variant="secondary"

@@ -40,34 +40,39 @@ const Menu = () => {
   };
 
   const renderMenuItems = (category) => {
-    return dataMenu
-      .filter(
-        (item) =>
-          selectedCategories.length === 0 ||
-          selectedCategories.includes(item.category)
-      )
-      .filter((item) => item.category === category)
-      .map((item) => (
-        <Col key={item.id} xs={12} md={6} lg={4}>
-          <Card className="menu-item mb-4">
-            <Card.Body style={{ fontFamily: "Comfortaa, sans-serif" }}>
-              <Card.Title>{item.name}</Card.Title>
-              {item.price && <Card.Text>Giá tiền: {item.price}</Card.Text>}
-              {item.notes && (
-                <Card.Text>
-                  {item.notes.split("\n").map((note, index) => (
-                    <span key={index}>
-                      {note}
-                      <br />
-                    </span>
-                  ))}
-                </Card.Text>
-              )}
-            </Card.Body>
-          </Card>
-        </Col>
-      ));
-  };
+  return dataMenu
+    .filter(
+      (item) =>
+        selectedCategories.length === 0 ||
+        selectedCategories.includes(item.category)
+    )
+    .filter((item) => item.category === category)
+    .map((item) => (
+      <Col key={item.id} xs={12} md={6} lg={4}>
+        <Card className="menu-item mb-4">
+          <Card.Body style={{ fontFamily: "Comfortaa, sans-serif" }}>
+            <Card.Title>{item.name}</Card.Title>
+            {item.price && (
+              <Card.Text>
+                Giá tiền: {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price)}
+              </Card.Text>
+            )}
+            {item.notes && (
+              <Card.Text>
+                {item.notes.split("\n").map((note, index) => (
+                  <span key={index}>
+                    {note}
+                    <br />
+                  </span>
+                ))}
+              </Card.Text>
+            )}
+          </Card.Body>
+        </Card>
+      </Col>
+    ));
+};
+
 
   const hasItemsInCategory = (category) => {
     return (
