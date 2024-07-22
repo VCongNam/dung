@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logoTrang.png";
 import "./Header.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -19,12 +19,12 @@ function BasicExample() {
   };
 
   return (
-    <Navbar expanded={expanded} expand="lg" style={{ backgroundColor: "#D8C4B9", fontFamily: 'DFVN Grafika' }}>
+    <Navbar expanded={expanded} expand="lg" style={{ backgroundColor: "#211F4C"}}>
       <Container fluid="md">
         <NavLink as={Link} to="/">
         <Navbar.Brand>
           <img alt="" src={logo} />{" "}
-          <span style={{ fontWeight: "600" }}>Dúng</span>
+          <span style={{ fontWeight: "600", color: "#E6D5CA" }}>Dúng</span>
         </Navbar.Brand>
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} />

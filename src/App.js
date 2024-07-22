@@ -51,7 +51,7 @@ const App = () => {
   // }, []);
 
   return (
-    <div className="App" style={{ fontFamily: 'DFVN Grafika' }}>
+    <div className="App" style={{minHeight:"100vh", backgroundColor:"#E6D5CA"}}>
       <BrowserRouter>
         <Header />
         <Routes>

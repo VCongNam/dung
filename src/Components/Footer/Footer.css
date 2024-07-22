@@ -1,6 +1,6 @@
 .footer {
-    background-color: #D8C4B9;
-    color: black;
+    background-color: #211F4C;
+    color: #E6D5CA;
     padding: 20px 0;
     font-family: "Comfortaa", sans-serif;
   }
@@ -16,13 +16,13 @@
   }
 
   .link{
-    color: #000;
+    color: #E6D5CA;
     font-weight: bold; 
   }
 
 
   .footer .social-icons a {
-    color: black;
+    color:#E6D5CA;
     text-decoration: none;
     transition: color 0.3s;
 }
@@ -66,7 +66,7 @@
 
 .footer-divider {
   margin: 20px 0;
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid #211F4C;
 }
 
 .copyright {

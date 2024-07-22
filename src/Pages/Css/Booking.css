@@ -1,7 +1,7 @@
 :root {
   --main-color: #B59C8A;
-  --background-color: #FFFFFF;
-  --text-color: #3A3028;
+  --background-color: #E6D5CA;
+  --text-color: #211F4C;
   --secondary-text-color: #5D4E43;
   --border-color: #8A6C5C;
   --hover-color: #D5C2B8;
@@ -30,9 +30,9 @@
   margin-top: 50px;
   margin-bottom: 50px;
   padding: 30px;
-  background-color: #f0f0f0;
-  border-radius: 15px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #E6D5CA;
+  /* border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); */
   font-family: "Comfortaa", sans-serif;
 }
 

@@ -6,7 +6,7 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer className="footer">
-      <Container style={{ backgroundColor: "#D8C4B9", fontSize: "0.8em" }}>
+      <Container style={{ backgroundColor: "#211F4C", fontSize: "0.8em" }}>
         <Row>
           <Col md={9} style={{ textAlign: "left" }}>
             <h5 className="mb-3">Dúng - Thịt nhúng nước quả</h5>
@@ -22,7 +22,7 @@ const Footer = () => {
             <p >
               @2023 Dúng, All Rights Reserved
             </p>
-            <p  className="link header">
+            <p  className="link header" style={{color: "#E6D5CA"}}>
               Theo dõi Dúng
             </p>
             <div className="social-icons">
