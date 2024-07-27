@@ -19,7 +19,7 @@ function BasicExample() {
   };
 
   return (
-    <Navbar expanded={expanded} expand="lg" style={{ backgroundColor: "#211F4C"}}>
+    <Navbar expanded={expanded} expand="lg" style={{ backgroundColor: "#211F4C"}} data-bs-theme="dark">
       <Container fluid="md">
         <NavLink as={Link} to="/">
         <Navbar.Brand>
@@ -27,7 +27,7 @@ function BasicExample() {
           <span style={{ fontWeight: "600", color: "#E6D5CA" }}>Dúng</span>
         </Navbar.Brand>
         </NavLink>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} style={{ color: "#E6D5CA" }} />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/" onClick={handleClose}>
@@ -53,3 +53,4 @@ function BasicExample() {
 }
 
 export default BasicExample;
+
