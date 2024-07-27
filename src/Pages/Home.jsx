@@ -23,20 +23,20 @@ const Home = () => {
             <h4 style={{ fontFamily: "Roboto Mono" }}>
               CHÚNG MÌNH LÀ GIA ĐÌNH DÚNG
             </h4>
-            <p style={{ color: "black"}}>
-              Đây là một văn bản tiếng việt để test xem có bị khó đọc không. Ra
-              xã hội làm ăn vươn trải, liều thì ăn nhiều, không liều thì ăn ít.
-              Muốn thành công thì phải chấp nhận trải qua đắng cay ngọt bùi. Làm
-              ăn muốn kiếm được tiền thì phải chấp nhận mạo hiểm, nguy hiểm một
-              tí nhưng trong tầm kiểm soát bạn hiểu chưa. Xã hội này, chỉ có
-              làm, chịu khó cần cù thì bù siêng năng. Chỉ có làm thì mới có ăn.
-              Những cái loại không làm mà đòi có ăn thì ăn đầu ####, ăn ###.Ra
-              xã hội làm ăn vươn trải, liều thì ăn nhiều, không liều thì ăn ít.
-              Muốn thành công thì phải chấp nhận trải qua đắng cay ngọt bùi. Làm
-              ăn muốn kiếm được tiền thì phải chấp nhận mạo hiểm, nguy hiểm một
-              tí nhưng trong tầm kiểm soát bạn hiểu chưa. Xã hội này, chỉ có
-              làm, chịu khó cần cù thì bù siêng năng. Chỉ có làm thì mới có ăn.
-              Những cái loại không làm mà đòi có ăn thì ăn đầu ####, ăn ###.
+            <p style={{ color: "black" }}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
+              facere molestiae ullam quam blanditiis nam. Ratione repellendus
+              asperiores soluta explicabo ducimus. Amet optio odio aliquid eius
+              beatae! Laudantium tempore deserunt voluptas soluta totam?
+              Deleniti optio doloremque quidem illo similique corporis, sit
+              porro voluptate, maxime culpa quod magni! Sequi hic laudantium
+              aperiam quibusdam voluptas praesentium sit nihil id, dolores
+              adipisci ducimus amet veritatis ipsum minus quidem ut blanditiis,
+              nemo culpa voluptatibus sed earum. Inventore numquam dolore
+              exercitationem optio expedita velit iusto. Rerum sed doloribus,
+              voluptatem praesentium iusto recusandae, sapiente sequi quia,
+              optio corporis quae suscipit! Aliquid explicabo quos rerum
+              mollitia magni.
             </p>
             <Link to="/aboutDung">
               <Button style={{ fontFamily: "Roboto Mono" }} className="btn">
@@ -53,7 +53,9 @@ const Home = () => {
 
         <Row>
           <h3 className="mt-5">DÚNG QUA NHỮNG KHUNG HÌNH</h3>
-          <div style={{alignItems: "center"}}><View /></div>
+          <div style={{ alignItems: "center" }}>
+            <View />
+          </div>
         </Row>
       </div>
     </div>
