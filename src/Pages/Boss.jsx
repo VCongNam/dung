@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Table, Dropdown } from 'react-bootstrap';
+import { Container, Row, Col, Form, Table, Dropdown, Button } from 'react-bootstrap';
 import supabase from '../services/supabaseConfig';
 
 const Boss = () => {
@@ -7,6 +7,7 @@ const Boss = () => {
   const [filteredBookings, setFilteredBookings] = useState([]);
   const [dateFilter, setDateFilter] = useState('');
   const [nameFilter, setNameFilter] = useState('');
+  const [isSortedByDate, setIsSortedByDate] = useState(false);
 
   useEffect(() => {
     fetchBookings();
@@ -29,16 +30,21 @@ const Boss = () => {
   const handleDateFilter = (e) => {
     const date = e.target.value;
     setDateFilter(date);
-    filterBookings(nameFilter, date);
+    filterBookings(nameFilter, date, isSortedByDate);
   };
 
   const handleNameFilter = (e) => {
     const name = e.target.value;
     setNameFilter(name);
-    filterBookings(name, dateFilter);
+    filterBookings(name, dateFilter, isSortedByDate);
   };
 
-  const filterBookings = (name, date) => {
+  const handleSortByDate = () => {
+    setIsSortedByDate(!isSortedByDate);
+    filterBookings(nameFilter, dateFilter, !isSortedByDate);
+  };
+
+  const filterBookings = (name, date, sortByDate) => {
     let filtered = bookings;
     if (name) {
       filtered = filtered.filter(booking =>
@@ -48,12 +54,14 @@ const Boss = () => {
     if (date) {
       filtered = filtered.filter(booking => booking.date === date);
     }
+    if (sortByDate) {
+      filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
     setFilteredBookings(filtered);
   };
 
   const handleStatusChange = async (bookingId, newStatus) => {
     try {
-        // eslint-disable-next-line
       const { data, error } = await supabase
         .from('bookings')
         .update({ status: newStatus })
@@ -92,7 +100,7 @@ const Boss = () => {
     <Container>
       <h1 className="my-4">Quản lý đặt bàn</h1>
       <Row className="mb-3">
-        <Col md={6}>
+        <Col md={4}>
           <Form.Group controlId="dateFilter">
             <Form.Label>Lọc theo ngày</Form.Label>
             <Form.Control
@@ -102,7 +110,7 @@ const Boss = () => {
             />
           </Form.Group>
         </Col>
-        <Col md={6}>
+        <Col md={4}>
           <Form.Group controlId="nameFilter">
             <Form.Label>Lọc theo tên</Form.Label>
             <Form.Control
@@ -112,6 +120,11 @@ const Boss = () => {
               onChange={handleNameFilter}
             />
           </Form.Group>
+        </Col>
+        <Col md={4} className="d-flex align-items-end">
+          <Button variant="primary" onClick={handleSortByDate}>
+            Sắp xếp theo ngày {isSortedByDate ? '(cũ nhất trước)' : '(mới nhất trước)'}
+          </Button>
         </Col>
       </Row>
       <Table striped bordered hover responsive>
