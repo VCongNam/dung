@@ -1,146 +1,106 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Hero from "../Components/Hero/Hero";
-import { Col, Container, Row, Form, Card } from "react-bootstrap";
-import supabase from "../services/supabaseConfig"; // Import supabase client
+import { Container, Row } from "react-bootstrap";
+import Dish from "../Components/MainDish/Dish";
+import "./Css/Menu.css";
 
 const Menu = () => {
-  const categories = [
-    "Thịt gọi thêm",
-    "Viên gọi thêm",
-    "Rau gọi thêm",
-    "Món cuốn sẵn",
-    "Đồ uống",
-    "Khác",
-  ];
-  const [dataMenu, setDataMenu] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data, error } = await supabase.from("menu").select("*");
-      if (error) {
-        console.error("Error fetching data:", error.message);
-      } else {
-        setDataMenu(data);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleCategoryChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setSelectedCategories([...selectedCategories, value]);
-    } else {
-      setSelectedCategories(
-        selectedCategories.filter((category) => category !== value)
-      );
-    }
-  };
-
-  const renderMenuItems = (category) => {
-  return dataMenu
-    .filter(
-      (item) =>
-        selectedCategories.length === 0 ||
-        selectedCategories.includes(item.category)
-    )
-    .filter((item) => item.category === category)
-    .map((item) => (
-      <Col key={item.id} xs={12} md={6} lg={4}>
-        <Card className="menu-item mb-4">
-          <Card.Body style={{ fontFamily: "Comfortaa, sans-serif" }}>
-            <Card.Title>{item.name}</Card.Title>
-            {item.price && (
-              <Card.Text>
-                Giá tiền: {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price)}
-              </Card.Text>
-            )}
-            {item.notes && (
-              <Card.Text>
-                {item.notes.split("\n").map((note, index) => (
-                  <span key={index}>
-                    {note}
-                    <br />
-                  </span>
-                ))}
-              </Card.Text>
-            )}
-          </Card.Body>
-        </Card>
-      </Col>
-    ));
-};
-
-
-  const hasItemsInCategory = (category) => {
-    return (
-      dataMenu.some(
-        (item) =>
-          selectedCategories.length === 0 ||
-          selectedCategories.includes(item.category)
-      ) && dataMenu.some((item) => item.category === category)
-    );
-  };
-
   return (
     <div className="menu">
       <Hero />
-      <Container>
+      <Container style={{ backgroundColor: "#E6D5CA" }}>
         <Row>
-          <h1 className="text-center mt-5" style={{ fontFamily: "Comfortaa, sans-serif" }}>MENU</h1>
+          <h1
+            style={{ fontFamily: "Comfortaa, sans-serif" }}
+          >
+            Menu
+          </h1>
+          <Dish />
         </Row>
-        <Row>
-          <h4 style={{ fontFamily: "Comfortaa, sans-serif" }}>Món chính</h4>
-          <Card className="menu-item mb-4">
-            <Card.Body>
-              <Card.Title style={{ fontFamily: "Comfortaa, sans-serif" }}>123.000 VND/ người</Card.Title>
-              <Card.Text style={{ fontFamily: "Comfortaa, sans-serif" }}>
-                Lựa chọn loại giấm bạn thích:
-                <br />- Giấm vải thiều
-                <br />- Giấm táo mèo
-                <br />- Giấm táo xanh
-                <br />- Giấm mơ
-                <br />- Giấm trà xanh (+50k/nồi)
-                <br />
-                Món nhúng đi kèm: Bắp bò tươi, gầu bò chín, rau nhúng, rau cuốn
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Row>
+
         <Row className="mt-4">
-          <Col xs={12} md={4} className="d-none d-sm-block">
-            <h3 style={{ fontFamily: "Comfortaa, sans-serif" }}>Các món gọi thêm</h3>
-            {categories.map((category) => (
-              <Form.Check
-              style={{ fontFamily: "Comfortaa, sans-serif" }}
-                key={category}
-                type="checkbox"
-                label={category}
-                value={category}
-                onChange={handleCategoryChange}
-              />
-            ))}
-          </Col>
-          <Col xs={12} md={8}>
-            <Row>
-              {categories.map(
-                (category) =>
-                  hasItemsInCategory(category) && (
-                    <React.Fragment key={category}>
-                      <h3 style={{ fontFamily: "Comfortaa, sans-serif" }}>{category}</h3>
-                      <Row>{renderMenuItems(category)}</Row>
-                    </React.Fragment>
-                  )
-              )}
-            </Row>
-          </Col>
+          <MenuSection title="Thịt gọi thêm">
+            <MenuItem name="Lõi rựa bò" price="150k" />
+            <MenuItem name="Ụ hoa" price="150k" />
+            <MenuItem name="Bẻ tươi" price="150k" />
+            <MenuItem name="Đuôi bò" price="123k" />
+            <MenuItem name="Gân bò" price="123k" />
+            <MenuItem name="Ba chỉ bò Mỹ" price="123k" />
+            <MenuItem name="Bắp bò" price="123k" />
+            <MenuItem name="Gầu bò" price="123k" />
+            <MenuItem name="Chân giò" price="110k" />
+            <MenuItem name="Nạm giòn" price="123k" />
+          </MenuSection>
+
+          <MenuSection title="Viên gọi thêm">
+            <MenuItem name="Bò viên" price="123k" />
+            <MenuItem name="Đậu hũ phô mai" price="123k" />
+            <MenuItem name="Sandwich cá" price="123k" />
+            <MenuItem name="Tàu hũ ky" price="123k" />
+            <MenuItem name="Hủ tiếu cuộn" price="110k" />
+            <MenuItem name="Viên tổng hợp" price="150k" />
+          </MenuSection>
+
+          <MenuSection title="Rau gọi thêm">
+            <MenuItem name="Nấm tổng hợp" price="50k" />
+            <MenuItem name="Rau nhúng tổng hợp" price="40k" />
+            <MenuItem name="Rau cuốn tổng hợp" price="30k" />
+          </MenuSection>
+
+          <MenuSection title="Khác">
+            <MenuItem name="Mì tôm" price="10k" />
+            <MenuItem name="Bún" price="20k" />
+            <MenuItem name="Đậu phu" price="30k" />
+            <MenuItem name="Váng đậu" price="30k" />
+            <MenuItem name="Quẩy" price="30k" />
+          </MenuSection>
+
+          <MenuSection title="Món cuốn sẵn (3 cuốn)">
+            <MenuItem name="Bò - cải cay - tảo" price="79k" />
+            <MenuItem name="Tôm - tóp mỡ - dưa" price="89k" />
+            <MenuItem name="Chân giò - chả ram - xoài" price="79k" />
+            <MenuItem name="Tai heo - rau thơm" price="79k" />
+            <MenuItem name="Lươn nướng - măng tây" price="89k" />
+            <MenuItem name="Đậu phụ - bắp cải tím" price="69k" />
+            <MenuItem
+              name="Cuốn 3 loại (tôm - chân giò - tai heo)"
+              price="89k"
+            />
+            <MenuItem name="Cuốn 3 loại (bò - đậu - lươn nướng)" price="89k" />
+          </MenuSection>
+
+          <MenuSection title="Đồ uống">
+            <MenuItem name="Nước sâu non" price="45k" />
+            <MenuItem name="Trà đậu tằm" price="50k" />
+            <MenuItem name="Trà Thái đỏ" price="45k" />
+            <MenuItem name="Soda mơ/quất/sấu" price="50k" />
+            <MenuItem name="Trà táo bạc hà" price="50k" />
+            <MenuItem name="Trà quất" price="30k" />
+            <MenuItem name="Trà nhài đá (bình)" price="30k" />
+            <MenuItem name="Coke (Pepsi, Coca, 7up)" price="30k" />
+            <MenuItem name="Bia (lon)" price="30k" />
+            <MenuItem name="Lavie" price="30k" />
+            <MenuItem name="Rượu mơ (120ml/550ml)" price="90/250k" />
+            <MenuItem name="Rượu nếp sữa (120ml/550ml)" price="90/250k" />
+          </MenuSection>
         </Row>
       </Container>
     </div>
   );
 };
 
-export default Menu;
+const MenuSection = ({ title, children }) => (
+  <div className="menu-section">
+    <h2>{title}</h2>
+    {children}
+  </div>
+);
 
+const MenuItem = ({ name, price }) => (
+  <div className="menu-item">
+    <span className="item-name">{name}</span>
+    <span className="item-price">{price}</span>
+  </div>
+);
+
+export default Menu;

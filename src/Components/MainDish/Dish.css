@@ -1,0 +1,55 @@
+.card{
+    width: 450px; 
+    border: 2px solid black;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #211F4C;
+    color: #E6D5CA;
+    font-weight: bold;
+}
+
+.card-body {
+    border-radius: 20px;
+    position: relative;
+    width: 400px; 
+    border: 2px solid #E6D5CA;
+    padding: 20px;
+}
+.text {
+    position: absolute;
+    top: -10px; 
+    left: 30%;
+    transform: translateX(-49%);
+    background-color: #211F4C;
+    padding: 0 10px;
+    color: #E6D5CA;
+}
+.sub-text{
+    margin: 0;
+}
+ul {
+    list-style-type: none; 
+    padding: 0;
+}
+li {
+    margin: 5px 0;
+    padding-left: 1em; 
+    position: relative;
+}
+li::before {
+    content: "-"; 
+    position: absolute;
+    left: 0; 
+}
+
+.dot {
+    height: 6px;
+    width: 6px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px; 
+}
