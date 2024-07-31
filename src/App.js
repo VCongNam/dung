@@ -12,6 +12,7 @@ import Booking from "./Pages/Booking";
 import Menu from "./Pages/Menu";
 import Member from "./Pages/Member";
 import "./App.css"
+import Boss from "./Pages/Boss";
 // import { createClient } from "@supabase/supabase-js";
 // import { messaging, requestPermission, onMessageListener } from "./services/firebaseConfig";
 // import { supabase } from "./services/supabaseConfig";
@@ -61,6 +62,7 @@ const App = () => {
           <Route path="/booking" element={<Booking />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/member" element={<Member />} />
+          <Route path="/boss" element={<Boss />} />
         </Routes>
         <Footer className="fixed-bottom"/>
       </BrowserRouter>

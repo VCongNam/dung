@@ -1,0 +1,15 @@
+.status-pending {
+    background-color: yellow;
+    color: black;
+  }
+  
+  .status-confirmed {
+    background-color: blue;
+    color: white;
+  }
+  
+  .status-completed {
+    background-color: green;
+    color: white;
+  }
+  
