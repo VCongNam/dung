@@ -15,5 +15,5 @@ Please make sure to update tests as appropriate.
 
 [VuCongNam](https://www.facebook.com/tinyboy.3007/)
 
-## Commitments:
-No.18: Push notification using FCM when having new booking.
+# Changes
+No.18: Noti for new bookings
