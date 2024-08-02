@@ -8,9 +8,8 @@ import view5 from "../Assets/view5.jpg";
 import view6 from "../Assets/view6.jpg";
 import view7 from "../Assets/view7.jpg";
 import view8 from "../Assets/view8.jpg";
-import view9 from "../Assets/view9.jpg";
 import { ImageGallery } from "react-image-grid-gallery";
-import "./Album.css"; // Add this line
+import "./Album.css";
 
 const imagesArray = [
   {
@@ -46,11 +45,7 @@ const imagesArray = [
   {
     src: view8,
     alt: "view8",
-  },
-  {
-    src: view9,
-    alt: "view9",
-  },
+  }
 ];
 
 function View() {

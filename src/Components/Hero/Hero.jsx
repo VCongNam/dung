@@ -11,8 +11,8 @@ const Hero = () => {
         <Row>
           <Col className="hero-text">
             <h1>Dúng xin chào bạn.</h1>
-            <p style={{textAlign:"justify",fontFamily: "Roboto Mono"}}>
-              
+            <p >
+              thêm văn bản nếu muốn ạ
             </p>
             <Link to="/menu">
               <Button style={{marginRight: "10px", marginBottom: "10px"}} variant="dark">Tham khảo Menu</Button>
