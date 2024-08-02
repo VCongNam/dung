@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Table, Dropdown, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Table, Dropdown } from 'react-bootstrap';
 import supabase from '../services/supabaseConfig';
 
 const Boss = () => {
@@ -7,10 +7,20 @@ const Boss = () => {
   const [filteredBookings, setFilteredBookings] = useState([]);
   const [dateFilter, setDateFilter] = useState('');
   const [nameFilter, setNameFilter] = useState('');
-  const [isSortedByDate, setIsSortedByDate] = useState(false);
 
   useEffect(() => {
     fetchBookings();
+    const subscription = supabase
+      .channel('public:bookings')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'bookings' }, payload => {
+        console.log('New booking:', payload);
+        sendNotification(payload.new);
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(subscription);
+    };
   }, []);
 
   const fetchBookings = async () => {
@@ -30,33 +40,26 @@ const Boss = () => {
   const handleDateFilter = (e) => {
     const date = e.target.value;
     setDateFilter(date);
-    filterBookings(nameFilter, date, isSortedByDate);
+    applyFilters(date, nameFilter);
   };
 
   const handleNameFilter = (e) => {
     const name = e.target.value;
     setNameFilter(name);
-    filterBookings(name, dateFilter, isSortedByDate);
+    applyFilters(dateFilter, name);
   };
 
-  const handleSortByDate = () => {
-    setIsSortedByDate(!isSortedByDate);
-    filterBookings(nameFilter, dateFilter, !isSortedByDate);
-  };
-
-  const filterBookings = (name, date, sortByDate) => {
+  const applyFilters = (date, name) => {
     let filtered = bookings;
-    if (name) {
-      filtered = filtered.filter(booking =>
-        booking.name.toLowerCase().includes(name.toLowerCase())
-      );
-    }
+
     if (date) {
       filtered = filtered.filter(booking => booking.date === date);
     }
-    if (sortByDate) {
-      filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    if (name) {
+      filtered = filtered.filter(booking => booking.name.toLowerCase().includes(name.toLowerCase()));
     }
+
     setFilteredBookings(filtered);
   };
 
@@ -71,18 +74,41 @@ const Boss = () => {
       if (error) {
         console.error('Error updating booking status:', error.message);
       } else {
-        // Update local state
         const updatedBookings = bookings.map(booking =>
           booking.id === bookingId ? { ...booking, status: newStatus } : booking
         );
         setBookings(updatedBookings);
-        setFilteredBookings(updatedBookings);
+        applyFilters(dateFilter, nameFilter);
       }
     } catch (error) {
       console.error('Error updating booking status:', error.message);
     }
   };
 
+  const sendNotification = (newBooking) => {
+    if (Notification.permission === 'granted') {
+      const notification = new Notification('New Booking', {
+        body: `New booking from ${newBooking.name}`,
+        tag: 'new-booking'
+      });
+
+      notification.onclick = () => {
+        window.location.href = '/boss';
+      };
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          sendNotification(newBooking);
+        }
+      });
+    }
+  };
+
+  const sortBookingsByDate = (bookingsList) => {
+    return bookingsList.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+  };
+
+  const sortedFilteredBookings = sortBookingsByDate(filteredBookings);
   const getStatusStyles = (status) => {
     switch (status) {
       case 'Chờ duyệt':
@@ -93,14 +119,12 @@ const Boss = () => {
         return { backgroundColor: 'green', color: 'white' };
       default:
         return {};
-    }
-  };
-
+    }}
   return (
     <Container>
       <h1 className="my-4">Quản lý đặt bàn</h1>
       <Row className="mb-3">
-        <Col md={4}>
+        <Col md={6}>
           <Form.Group controlId="dateFilter">
             <Form.Label>Lọc theo ngày</Form.Label>
             <Form.Control
@@ -110,21 +134,16 @@ const Boss = () => {
             />
           </Form.Group>
         </Col>
-        <Col md={4}>
+        <Col md={6}>
           <Form.Group controlId="nameFilter">
             <Form.Label>Lọc theo tên</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Nhập tên"
+              placeholder="Nhập tên khách hàng"
               value={nameFilter}
               onChange={handleNameFilter}
             />
           </Form.Group>
-        </Col>
-        <Col md={4} className="d-flex align-items-end">
-          <Button variant="primary" onClick={handleSortByDate}>
-            Sắp xếp theo ngày {isSortedByDate ? '(cũ nhất trước)' : '(mới nhất trước)'}
-          </Button>
         </Col>
       </Row>
       <Table striped bordered hover responsive>
@@ -140,7 +159,7 @@ const Boss = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredBookings.map((booking) => (
+          {sortedFilteredBookings.map((booking) => (
             <tr key={booking.id}>
               <td>{booking.name}</td>
               <td>{booking.phone}</td>
@@ -150,12 +169,9 @@ const Boss = () => {
               <td>{booking.notes}</td>
               <td>
                 <Dropdown onSelect={(eventKey) => handleStatusChange(booking.id, eventKey)}>
-                  <Dropdown.Toggle
-                    variant="secondary"
-                    id={`dropdown-${booking.id}`}
-                    style={getStatusStyles(booking.status)}
-                  >
+                  <Dropdown.Toggle variant="secondary" id={`dropdown-${booking.id}`}   style={getStatusStyles(booking.status)}>
                     {booking.status}
+                    
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item eventKey="Chờ duyệt">Chờ duyệt</Dropdown.Item>
