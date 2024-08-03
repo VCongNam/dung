@@ -15,5 +15,3 @@ Please make sure to update tests as appropriate.
 
 [VuCongNam](https://www.facebook.com/tinyboy.3007/)
 
-# Changes
-No.18: Noti for new bookings
