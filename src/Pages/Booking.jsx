@@ -97,6 +97,7 @@ const Booking = () => {
         console.error("Error saving booking data:", error.message);
       } else {
         setShowSuccessModal(true);
+        sendNotification(newBooking);
 
         setTimeout(() => {
           setShowSuccessModal(false);
@@ -107,7 +108,25 @@ const Booking = () => {
       console.error("Error saving booking data:", error.message);
     }
   };
-
+  const sendNotification = (newBooking) => {
+    fetch("https://ntfy.sh/Booking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: `New booking from ${newBooking.name} at ${newBooking.date}`,
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Notification sent");
+        } else {
+          console.error("Failed to send notification");
+        }
+      })
+      .catch((error) => {
+        console.error("Error sending notification:", error);
+      });
+  };
   const handleSearch = () => {
     // Filter bookings based on searchPhone
     const results = bookings.filter((booking) => booking.phone === searchPhone);
@@ -161,8 +180,6 @@ const Booking = () => {
   };
 
   const handleUpdate = async () => {
-    // console.log("Booking details:", bookingDetails);
-    // console.log("Editing booking ID:", editingBooking.id);
 
     try {
       const { data, error } = await supabase

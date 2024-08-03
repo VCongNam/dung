@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Table, Dropdown, Pagination } from 'react-bootstrap';
+import { Container, Row, Col, Form, Table, Dropdown, Button } from 'react-bootstrap';
 import supabase from '../services/supabaseConfig';
 
 const Boss = () => {
@@ -7,25 +7,10 @@ const Boss = () => {
   const [filteredBookings, setFilteredBookings] = useState([]);
   const [dateFilter, setDateFilter] = useState('');
   const [nameFilter, setNameFilter] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const bookingsPerPage = 30;
+  const [isSortedByDate, setIsSortedByDate] = useState(false);
 
   useEffect(() => {
     fetchBookings();
-
-    const bookingChannel = supabase
-      .channel('custom-all-channel')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'bookings' }, (payload) => {
-        const newBooking = payload.new;
-        setBookings((prevBookings) => [...prevBookings, newBooking]);
-        setFilteredBookings((prevBookings) => applyFilters([...prevBookings, newBooking]));
-        sendNotification(newBooking);
-      })
-      .subscribe();
-
-    return () => {
-      bookingChannel.unsubscribe();
-    };
   }, []);
 
   const fetchBookings = async () => {
@@ -35,54 +20,44 @@ const Boss = () => {
         console.error('Error fetching booking data:', error.message);
       } else {
         setBookings(data);
-        setFilteredBookings(applyFilters(data));
+        setFilteredBookings(data);
       }
     } catch (error) {
       console.error('Error fetching booking data:', error.message);
     }
   };
 
-  const sendNotification = (newBooking) => {
-    fetch('https://ntfy.sh/Booking', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: `New booking from ${newBooking.name}`
-    }).then(response => {
-      if (response.ok) {
-        console.log('Notification sent');
-      } else {
-        console.error('Failed to send notification');
-      }
-    }).catch(error => {
-      console.error('Error sending notification:', error);
-    });
-  };
-
   const handleDateFilter = (e) => {
     const date = e.target.value;
     setDateFilter(date);
-    setCurrentPage(1);
-    setFilteredBookings(applyFilters(bookings, date, nameFilter));
+    filterBookings(nameFilter, date, isSortedByDate);
   };
 
   const handleNameFilter = (e) => {
     const name = e.target.value;
     setNameFilter(name);
-    setCurrentPage(1);
-    setFilteredBookings(applyFilters(bookings, dateFilter, name));
+    filterBookings(name, dateFilter, isSortedByDate);
   };
 
-  const applyFilters = (data, date = dateFilter, name = nameFilter) => {
-    return data
-      .filter((booking) => {
-        return (
-          (!date || booking.date === date) &&
-          (!name || booking.name.toLowerCase().includes(name.toLowerCase()))
-        );
-      })
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
+  const handleSortByDate = () => {
+    setIsSortedByDate(!isSortedByDate);
+    filterBookings(nameFilter, dateFilter, !isSortedByDate);
+  };
+
+  const filterBookings = (name, date, sortByDate) => {
+    let filtered = bookings;
+    if (name) {
+      filtered = filtered.filter(booking =>
+        booking.name.toLowerCase().includes(name.toLowerCase())
+      );
+    }
+    if (date) {
+      filtered = filtered.filter(booking => booking.date === date);
+    }
+    if (sortByDate) {
+      filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+    setFilteredBookings(filtered);
   };
 
   const handleStatusChange = async (bookingId, newStatus) => {
@@ -96,11 +71,12 @@ const Boss = () => {
       if (error) {
         console.error('Error updating booking status:', error.message);
       } else {
+        // Update local state
         const updatedBookings = bookings.map(booking =>
           booking.id === bookingId ? { ...booking, status: newStatus } : booking
         );
         setBookings(updatedBookings);
-        setFilteredBookings(applyFilters(updatedBookings));
+        setFilteredBookings(updatedBookings);
       }
     } catch (error) {
       console.error('Error updating booking status:', error.message);
@@ -120,28 +96,11 @@ const Boss = () => {
     }
   };
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const offset = (currentPage - 1) * bookingsPerPage;
-  const currentBookings = filteredBookings.slice(offset, offset + bookingsPerPage);
-  const pageCount = Math.ceil(filteredBookings.length / bookingsPerPage);
-
-  const paginationItems = [];
-  for (let number = 1; number <= pageCount; number++) {
-    paginationItems.push(
-      <Pagination.Item key={number} active={number === currentPage} onClick={() => handlePageChange(number)}>
-        {number}
-      </Pagination.Item>
-    );
-  }
-
   return (
     <Container>
       <h1 className="my-4">Quản lý đặt bàn</h1>
       <Row className="mb-3">
-        <Col md={6}>
+        <Col md={4}>
           <Form.Group controlId="dateFilter">
             <Form.Label>Lọc theo ngày</Form.Label>
             <Form.Control
@@ -151,7 +110,7 @@ const Boss = () => {
             />
           </Form.Group>
         </Col>
-        <Col md={6}>
+        <Col md={4}>
           <Form.Group controlId="nameFilter">
             <Form.Label>Lọc theo tên</Form.Label>
             <Form.Control
@@ -161,6 +120,11 @@ const Boss = () => {
               onChange={handleNameFilter}
             />
           </Form.Group>
+        </Col>
+        <Col md={4} className="d-flex align-items-end">
+          <Button variant="primary" onClick={handleSortByDate}>
+            Sắp xếp theo ngày {isSortedByDate ? '(cũ nhất trước)' : '(mới nhất trước)'}
+          </Button>
         </Col>
       </Row>
       <Table striped bordered hover responsive>
@@ -176,7 +140,7 @@ const Boss = () => {
           </tr>
         </thead>
         <tbody>
-          {currentBookings.map((booking) => (
+          {filteredBookings.map((booking) => (
             <tr key={booking.id}>
               <td>{booking.name}</td>
               <td>{booking.phone}</td>
@@ -186,7 +150,11 @@ const Boss = () => {
               <td>{booking.notes}</td>
               <td>
                 <Dropdown onSelect={(eventKey) => handleStatusChange(booking.id, eventKey)}>
-                  <Dropdown.Toggle variant="secondary" id={`dropdown-${booking.id}`} style={getStatusStyles(booking.status)}>
+                  <Dropdown.Toggle
+                    variant="secondary"
+                    id={`dropdown-${booking.id}`}
+                    style={getStatusStyles(booking.status)}
+                  >
                     {booking.status}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
@@ -200,9 +168,6 @@ const Boss = () => {
           ))}
         </tbody>
       </Table>
-      <Pagination className="justify-content-center mt-3">
-        {paginationItems}
-      </Pagination>
     </Container>
   );
 };

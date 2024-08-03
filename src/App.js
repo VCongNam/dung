@@ -10,7 +10,6 @@ import Header from "./Components/Navbar/Header";
 import Footer from "./Components/Footer/Footer";
 import Booking from "./Pages/Booking";
 import Menu from "./Pages/Menu";
-import Member from "./Pages/Member";
 import "./App.css";
 import Boss from "./Pages/Boss";
 import { requestForToken, onMessageListener } from "./services/firebaseConfig";
@@ -50,7 +49,6 @@ const App = () => {
           <Route path="/aboutDung" element={<AboutUs />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/menu" element={<Menu />} />
-          <Route path="/member" element={<Member />} />
           <Route path="/boss" element={<Boss />} />
         </Routes>
         <Footer className="fixed-bottom" />
