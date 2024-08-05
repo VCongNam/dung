@@ -96,9 +96,8 @@ const Booking = () => {
       if (error) {
         console.error("Error saving booking data:", error.message);
       } else {
-        setShowSuccessModal(true);
         sendNotification(newBooking);
-
+        setShowSuccessModal(true);
         setTimeout(() => {
           setShowSuccessModal(false);
           window.location.reload();
@@ -118,9 +117,7 @@ const Booking = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("Notification sent");
         } else {
-          console.error("Failed to send notification");
         }
       })
       .catch((error) => {
@@ -163,7 +160,6 @@ const Booking = () => {
       if (error) {
         console.error("Error deleting booking:", error.message);
       } else {
-        console.log("Booking deleted successfully");
         setBookings(
           bookings.filter((booking) => booking.id !== bookingToDelete.id)
         );
@@ -180,7 +176,6 @@ const Booking = () => {
   };
 
   const handleUpdate = async () => {
-
     try {
       const { data, error } = await supabase
         .from("bookings")
@@ -193,8 +188,6 @@ const Booking = () => {
       } else if (!data || data.length === 0) {
         console.error("No booking found with the specified ID.");
       } else {
-        console.log("Booking updated successfully:", data);
-
         setBookings(
           bookings.map((booking) =>
             booking.id === editingBooking.id ? data[0] : booking

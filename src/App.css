@@ -3,9 +3,7 @@ body{
     flex-direction: column;
     height: 100dvh;
     background-color: #E6D5CA;
-}
-.App{
-    flex: 1;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
