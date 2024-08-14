@@ -347,6 +347,13 @@ const Booking = () => {
             </Row>
           </Form>
         </div>
+        {filteredBookings.length === 0 && searchPhone === "" && (
+          <div className="text-center mt-4 d-none d-md-block">
+            <p style={{paddingTop: "2.5em"}}>
+              Lịch sử đặt bàn của bạn sẽ được hiện thị ở đây nha!
+            </p>
+          </div>
+        )}
         {filteredBookings.length > 0 && (
           <div className="table-container">
             <h2 className="mt-3">Lịch sử đặt bàn</h2>
