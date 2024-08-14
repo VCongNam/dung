@@ -11,9 +11,8 @@ to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-## License
-
-[VuCongNam](https://www.facebook.com/tinyboy.3007/)
+##Status
+Waiting for content to become a public product
 
 ## Screenshots
 
@@ -25,4 +24,6 @@ Please make sure to update tests as appropriate.
 
 ![Book](https://github.com/user-attachments/assets/c091e3fa-b195-4878-95dc-988e74db416c)
 
+## License
 
+[VuCongNam](https://www.facebook.com/tinyboy.3007/)
