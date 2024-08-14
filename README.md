@@ -17,9 +17,12 @@ Please make sure to update tests as appropriate.
 
 ## Screenshots
 
-1. ![Home](https://github.com/user-attachments/assets/1933ff18-ce1a-4013-8954-acf825edb0e6)
-2. ![About](https://github.com/user-attachments/assets/12838092-598b-4278-bc4a-6e84b73415a3)
-3.![Menu](https://github.com/user-attachments/assets/f16e8637-617a-41e8-ba2f-22eb9981cb6f)
-4.![Book](https://github.com/user-attachments/assets/c091e3fa-b195-4878-95dc-988e74db416c)
+![Home](https://github.com/user-attachments/assets/1933ff18-ce1a-4013-8954-acf825edb0e6)
+
+![About](https://github.com/user-attachments/assets/12838092-598b-4278-bc4a-6e84b73415a3)
+
+![Menu](https://github.com/user-attachments/assets/f16e8637-617a-41e8-ba2f-22eb9981cb6f)
+
+![Book](https://github.com/user-attachments/assets/c091e3fa-b195-4878-95dc-988e74db416c)
 
 
