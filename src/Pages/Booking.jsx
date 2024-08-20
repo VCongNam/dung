@@ -110,10 +110,13 @@ const Booking = () => {
   const sendNotification = (newBooking) => {
     fetch("https://ntfy.sh/Booking", {
       method: "POST",
+      body: `${newBooking.name} at ${newBooking.date} `,
       headers: {
-        "Content-Type": "application/json",
+        'Title': 'New Booking',
+        'Priority': 5,
+        'Actions': 'view, Check Booking, https://dungdipandroll-congnams-projects.vercel.app/boss' 
       },
-      body: `New booking from ${newBooking.name} at ${newBooking.date}`,
+    
     })
       .then((response) => {
         if (response.ok) {
@@ -349,7 +352,7 @@ const Booking = () => {
         </div>
         {filteredBookings.length === 0 && searchPhone === "" && (
           <div className="text-center mt-4 d-none d-md-block">
-            <p style={{paddingTop: "2.5em"}}>
+            <p style={{ paddingTop: "2.5em" }}>
               Lịch sử đặt bàn của bạn sẽ được hiện thị ở đây nha!
             </p>
           </div>
