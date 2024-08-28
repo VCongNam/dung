@@ -24,7 +24,7 @@ function BasicExample() {
         <NavLink as={Link} to="/">
         <Navbar.Brand>
           <img alt="" src={logo} />{" "}
-          <span style={{ fontWeight: "600", color: "#E6D5CA" }}>Dúng</span>
+          <span style={{ fontWeight: "600", color: "#E6D5CA" }}>DÚNG</span>
         </Navbar.Brand>
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} style={{ color: "#E6D5CA" }} />
