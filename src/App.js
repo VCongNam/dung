@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import AboutUs from "./Pages/AboutUs";
 import Header from "./Components/Navbar/Header";
@@ -42,7 +42,7 @@ const App = () => {
       }}
     >
       <ToastContainer />
-      <BrowserRouter>
+      <HashRouter>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -52,9 +52,10 @@ const App = () => {
           <Route path="/boss" element={<Boss />} />
         </Routes>
         <Footer className="fixed-bottom" />
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 };
 
 export default App;
+
