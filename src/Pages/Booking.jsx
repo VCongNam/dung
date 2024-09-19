@@ -318,7 +318,7 @@ const Booking = () => {
             Đặt bàn
           </Button>
           <h6 className="my-3">
-            Dúng sẽ sớm liên hệ với bạn để chốt lịch đặt bàn. Chỉ khi nhận được
+            <span  style={{ fontWeight: "650"}}>DÚNG</span> sẽ sớm liên hệ với bạn để chốt lịch đặt bàn. Chỉ khi nhận được
             gọi xác nhận, yêu cầu của bạn mới được coi là đặt bàn thành công.
             Khi nhận được cuộc gọi nhỡ từ hệ thống vui lòng liên hệ lại hotline
             để được hỗ trợ đặt bàn!
