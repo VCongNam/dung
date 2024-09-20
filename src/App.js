@@ -15,6 +15,7 @@ import Boss from "./Pages/Boss";
 import { requestForToken, onMessageListener } from "./services/firebaseConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ZaloRedirect from "./Components/zalo";
 
 const App = () => {
   useEffect(() => {
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/booking" element={<Booking />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/boss" element={<Boss />} />
+          <Route path="/zalo-redirect" element={<ZaloRedirect />} />
         </Routes>
         <Footer className="fixed-bottom" />
       </HashRouter>
