@@ -12,12 +12,15 @@ const ZaloRedirect = () => {
           },
           fail: (error) => {
             console.error('Failed to open webview:', error);
-            // Fallback: mở trong tab mới nếu không thể mở webview
+            console.log(`Error Code: ${error.code}`);
+            console.log(`Error Message: ${error.message}`);
+            console.log(`API Endpoint: ${error.api}`);
+            console.log(`Error Details: ${error.detail}`);
+
             window.location.href = 'https://www.dungthitnhungnuocqua.com/#/booking';
           }
         });
       } else {
-        // Fallback cho môi trường không phải Zalo
         window.location.href = 'https://www.dungthitnhungnuocqua.com/#/booking';
       }
     };
@@ -25,7 +28,7 @@ const ZaloRedirect = () => {
     openZaloWebview();
   }, []);
 
-  return <div>Đang chuyển hướng...</div>;
+  return <div>Đang chuyển hướng... </div>;
 };
 
 export default ZaloRedirect;
