@@ -317,11 +317,8 @@ const Booking = () => {
           >
             Đặt bàn
           </Button>
-          <h6 className="my-3">
-            <span  style={{ fontWeight: "650"}}>DÚNG</span> sẽ sớm liên hệ với bạn để chốt lịch đặt bàn. Chỉ khi nhận được
-            gọi xác nhận, yêu cầu của bạn mới được coi là đặt bàn thành công.
-            Khi nhận được cuộc gọi nhỡ từ hệ thống vui lòng liên hệ lại hotline
-            để được hỗ trợ đặt bàn!
+          <h6 className="text-center mt-4 d-none d-md-block">
+            <span  style={{ fontWeight: "650"}}>DÚNG</span> sẽ sớm liên hệ với bạn để xác nhận thông tin đặt bàn. Cảm ơn bạn. 
           </h6>
         </Form>
         <div className="search-container mt-4">

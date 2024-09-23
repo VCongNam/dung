@@ -11,44 +11,25 @@ const AboutUs = () => {
     <div>
       <Hero />
       <Container fluid="md" className="my-5">
-        {/* Cau chuyen thuong hieu */}
-        <Row className="mb-4">
-          <h1 className="section-title my-2">Câu chuyện thương hiệu</h1>
-        </Row>
-
-        <Row>
-          <Col md={7}>
-            <p className="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo magni
-              esse enim cumque mollitia voluptatum voluptatem. Maxime iusto
-              ipsa, distinctio expedita ipsum exercitationem alias facilis,
-              pariatur beatae rerum tenetur totam maiores consequatur sed
-              cupiditate? Atque, asperiores dolor quod corrupti laborum eligendi
-              fuga aut eum beatae reiciendis quasi necessitatibus praesentium
-              dignissimos accusantium provident, eveniet hic corporis tempora
-              incidunt! Quia deserunt id eos iste repudiandae excepturi, aperiam
-              fugit eligendi, sint cupiditate ipsam, ipsa quis nisi! Dolorum,
-              aperiam quibusdam? Voluptates sapiente esse maxime perspiciatis
-              nam maiores, vel amet est itaque nihil exercitationem quasi quis
-              corporis voluptatum? Doloribus quas tempore voluptates
-              accusantium, odio numquam!
-            </p>
-          </Col>
-          <Col>
-            {" "}
-            <img
-              className="ingredient-image"
-              src={nguyenlieu}
-              alt="Nguyen lieu"
-            />
-          </Col>
-        </Row>
 
         {/* Nguon nguyen lieu */}
         <Row className="mb-4">
-          <h1 className="section-title my-2">Nguồn nguyên liệu</h1>
+          <h1 className="section-title my-2">
+            Nước dùng của Dúng được làm từ gì?
+          </h1>
         </Row>
         <Row>
+         
+          <Col md={7}>
+            <p className="text">
+              Nồi nước dùng cầu kỳ không chỉ bởi hậu vị thanh ngọt mà còn ở khâu
+              chuẩn bị nguyên liệu, thời gian đun nấu. Căn bếp mỗi sáng luôn rộn
+              ràng bởi tiếng cắt gọt của mía, táo, lê, dừa, dứa...những loại củ
+              quả tươi mát, thanh dịu. Dúng nói không với mì chính nên bạn hoàn
+              toàn yên tâm vị ngọt của nước dùng đều đến từ trái cây thơm phức,
+              chân thật. Mang đến một trải nghiệm ngon lành và tốt cho sức khoẻ.
+            </p>
+          </Col>
           <Col>
             <img
               className="ingredient-image"
@@ -57,54 +38,26 @@ const AboutUs = () => {
               loading="lazy"
             />
           </Col>
-          <Col md={7}>
-            <p className="text">
-              Nồi nước dùng cầu kỳ không chỉ bởi hậu vị thanh ngọt mà còn ở khâu
-              chuẩn bị nguyên liệu, thời gian đun nấu. Căn bếp mỗi sáng luôn rộn
-              ràng bởi tiếng cắt gọt của mía, táo, lê, dừa, dứa.. những loại củ
-              quả tươi mát, thanh dịu. Dúng nói không với mì chính nên bạn hoàn
-              toàn yên tâm vị ngọt của nước dùng đều đến từ trái cây thơm phức,
-              chân thật. Mang đến một trải nghiệm ngon lành và tốt cho sức khỏe.
-              Và giấm của Dúng cũng đặc biệt lắm lắm, chúng mình sử dụng các
-              loại giấm thủ công được lên men tự nhiên từ hoa quả, như vải
-              thiều, mơ hay táo mèo, táo xanh. Mỗi loại giấm sẽ có một sắc độ và
-              hương vị chua khác nhau
-            </p>
-            <p className="text">
-              Và giấm của Dúng cũng đặc biệt lắm lắm, chúng mình sử dụng các
-              loại giấm thủ công được lên men tự nhiên từ hoa quả, như vải
-              thiều, mơ hay táo mèo, táo xanh. Mỗi loại giấm sẽ có một sắc độ và
-              hương vị chua khác nhau
-            </p>
-          </Col>
         </Row>
 
         {/* Gia tri cot loi */}
         <Row className="mb-4">
-          <h1 className="section-title my-2">Giá trị cốt lõi</h1>
+          <h1 className="section-title my-2">
+            Ngoài món nhúng ở Dúng còn có gì?
+          </h1>
         </Row>
         <Row>
           <Col md={8}>
             <p className="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-              odio, officia quibusdam cupiditate earum nostrum reiciendis.
-              Deserunt, quod sequi quos nulla repellat placeat facilis molestias
-              fugit pariatur est nihil nam sapiente praesentium consectetur
-              laborum odio laudantium. Aliquid neque est repudiandae dolor
-              velit? Voluptate repellat fuga voluptatum nobis inventore! Omnis
-              illo ullam ipsam, saepe illum necessitatibus, voluptatem odio
-              repellendus quos earum natus tenetur voluptate! Nostrum est
-              officiis ut tempora! Error labore aliquam laudantium, deserunt
-              natus ad laboriosam tempora. Quam veniam dolorem rerum illo ad at
-              pariatur ea cumque reprehenderit sunt quo culpa commodi
-              repellendus molestias, quas ducimus quos, eligendi hic
-              repudiandae.
+              Món cuốn sáng tạo, là món ăn chơi nhưng vẫn đủ đầy dinh dưỡng và
+              no bụng. Bếp sẽ cuốn khi có order nên luôn đảm bảo độ tươi giòn
+              của rau củ, bạn đừng ngại gọi thêm tóp mỡ hay chả ram vào chiếc
+              cuốn béo tròn nhé, những nguyên liệu quen thuộc nhưng cũng thật
+              mới mẻ được Dúng kết hợp để sử dụng chắc chắn sẽ khiến bạn cảm
+              thấy thú vị đó.
             </p>
           </Col>
-          <Col md={4}>
-            {" "}
-            <img className="GTCL" src={GTCL} alt="GTCL" loading="lazy" />
-          </Col>
+         
 
           <p className="text">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae magni
@@ -143,109 +96,8 @@ const AboutUs = () => {
           </p>
         </Row>
 
-        {/* Noi bat cam hung */}
-        <Row className="mb-4">
-          <h1 className="section-title my-2">Nổi bật - Cảm hứng</h1>
-        </Row>
-        <Row>
-          <Col md={7}>
-            <p className="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              libero a, earum, architecto sapiente autem temporibus quod quam
-              reprehenderit esse placeat. Incidunt porro officia eum, eos
-              nesciunt dolor quia quos quas fugit quaerat assumenda omnis
-              voluptatem repudiandae asperiores illo nostrum laudantium fuga
-              quod voluptas tempora accusantium deserunt dignissimos sequi?
-              Libero accusantium consequuntur delectus, mollitia iste beatae.
-              Distinctio harum sit ipsum eveniet esse molestias aspernatur,
-              fugit dolores facere voluptatem, voluptate mollitia iusto aut.
-              Quibusdam inventore, architecto ea ut perspiciatis laudantium
-              labore quia ducimus rerum placeat. Officia laboriosam fuga magnam
-              voluptatibus vitae, odio earum placeat! Pariatur, nihil officia?
-              Molestias neque modi explicabo!
-            </p>
-            <p className="text">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit
-              optio placeat fugiat, beatae corrupti quam provident, sint labore
-              esse aliquid quo hic, fuga nobis id suscipit adipisci qui sed
-              facilis!
-            </p>
-          </Col>
-          <Col>
-            <img
-              className="ingredient-image"
-              src={nguyenlieu}
-              alt="Nguyen lieu"
-              loading="lazy"
-            />
-          </Col>
-        </Row>
 
-{/* Nha lam */}
-        <Row className="mb-4">
-          <h1 className="section-title my-2">Nhà làm</h1>
-        </Row>
-
-        <Row>
-          <Col md={7}>
-            <p className="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo magni
-              esse enim cumque mollitia voluptatum voluptatem. Maxime iusto
-              ipsa, distinctio expedita ipsum exercitationem alias facilis,
-              pariatur beatae rerum tenetur totam maiores consequatur sed
-              cupiditate? Atque, asperiores dolor quod corrupti laborum eligendi
-              fuga aut eum beatae reiciendis quasi necessitatibus praesentium
-              dignissimos accusantium provident, eveniet hic corporis tempora
-              incidunt! Quia deserunt id eos iste repudiandae excepturi, aperiam
-              fugit eligendi, sint cupiditate ipsam, ipsa quis nisi! Dolorum,
-              aperiam quibusdam? Voluptates sapiente esse maxime perspiciatis
-              nam maiores, vel amet est itaque nihil exercitationem quasi quis
-              corporis voluptatum? Doloribus quas tempore voluptates
-              accusantium, odio numquam!
-            </p>
-          </Col>
-          <Col>
-            {" "}
-            <img
-              className="ingredient-image"
-              src={nguyenlieu}
-              alt="Nguyen lieu"
-            />
-          </Col>
-        </Row>
-
-{/* Sự chăm sóc */}
-<Row className="mb-4">
-          <h1 className="section-title my-2">Sự chăm sóc</h1>
-        </Row>
-
-        <Row>
-          <Col md={7}>
-            <p className="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo magni
-              esse enim cumque mollitia voluptatum voluptatem. Maxime iusto
-              ipsa, distinctio expedita ipsum exercitationem alias facilis,
-              pariatur beatae rerum tenetur totam maiores consequatur sed
-              cupiditate? Atque, asperiores dolor quod corrupti laborum eligendi
-              fuga aut eum beatae reiciendis quasi necessitatibus praesentium
-              dignissimos accusantium provident, eveniet hic corporis tempora
-              incidunt! Quia deserunt id eos iste repudiandae excepturi, aperiam
-              fugit eligendi, sint cupiditate ipsam, ipsa quis nisi! Dolorum,
-              aperiam quibusdam? Voluptates sapiente esse maxime perspiciatis
-              nam maiores, vel amet est itaque nihil exercitationem quasi quis
-              corporis voluptatum? Doloribus quas tempore voluptates
-              accusantium, odio numquam!
-            </p>
-          </Col>
-          <Col>
-            {" "}
-            <img
-              className="ingredient-image"
-              src={nguyenlieu}
-              alt="Nguyen lieu"
-            />
-          </Col>
-        </Row>
+        
       </Container>
     </div>
   );
