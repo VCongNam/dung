@@ -3,7 +3,7 @@ import { Col, Container, Row,Image } from "react-bootstrap";
 import Dish from "../Components/MainDish/Dish";
 import "./Css/Menu.css";
 import supabase from "../services/supabaseConfig";
-import demoMenu from "../Components/Assets/demoMenu.png"
+import demomenu1 from "../Components/Assets/demomenu1.jpg"
 
 const MenuSection = ({ title, children }) => (
   <div className="menu-section">
@@ -80,7 +80,7 @@ const Menu = () => {
         </Row>
         <Row>
           <Col md={6}><Dish /></Col>
-          <Col md={6}><Image className="d-none d-sm-block" style={{width:"100%"}} src={demoMenu}/></Col>
+          <Col md={6}><Image className="d-none d-sm-block demoMenu" style={{width:"80%"}} src={demomenu1}/></Col>
         </Row>
 
         {groupedCategories.map(([category1, category2]) => (

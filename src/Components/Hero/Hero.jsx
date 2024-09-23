@@ -10,18 +10,23 @@ const Hero = () => {
       <Container fluid>
         <Row>
           <Col className="hero-text">
-            <h1>Dúng xin chào bạn.</h1>
+            <h1>Dúng Dip & Roll</h1>
             <Link to="/menu">
               <Button
                 style={{ marginRight: "10px", marginBottom: "10px" }}
                 variant="dark"
+                className="menu-btn"
               >
-                Menu
+                 <span class="button-content">Menu </span>
               </Button>
             </Link>
             <Link to="/booking">
-              <Button style={{ marginBottom: "10px" }} variant="dark">
-                Đặt bàn
+              <Button
+                style={{ marginBottom: "10px" }}
+                variant="dark"
+                className="booking-btn"
+              >
+                 <span class="button-content">Đặt bàn </span>
               </Button>
             </Link>
           </Col>

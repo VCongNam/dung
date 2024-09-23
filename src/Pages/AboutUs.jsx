@@ -2,8 +2,7 @@ import React from "react";
 import Hero from "../Components/Hero/Hero";
 import { Col, Container, Row } from "react-bootstrap";
 import nguyenlieu from "../Components/Assets/nvl.jpg";
-import GTCL from "../Components/Assets/GTCL.jpg";
-import GTCL1 from "../Components/Assets/GTCL1.jpg";
+import roll from "../Components/Assets/roll.jpg";
 import "../Pages/Css/AboutUs.css";
 
 const AboutUs = () => {
@@ -11,16 +10,23 @@ const AboutUs = () => {
     <div>
       <Hero />
       <Container fluid="md" className="my-5">
-
         {/* Nguon nguyen lieu */}
-        <Row className="mb-4">
-          <h1 className="section-title my-2">
-            Nước dùng của Dúng được làm từ gì?
-          </h1>
+        <Row className="mb-4"></Row>
+        <Row>
+          <Col>
+            <p className="text">
+              Hành trình mang đến những bữa ăn lành mạnh, tốt cho sức khoẻ bắt
+              đầu từ nguồn nguyên liệu tươi sạch. Dúng mang đến "thịt nhúng nước
+              quả" với nước dùng được nấu 100% từ hoa quả tươi, kết hợp cùng các
+              loại giấm lên men tự nhiên nhà làm.
+            </p>
+          </Col>
         </Row>
         <Row>
-         
           <Col md={7}>
+            <h1 className="section-title my-2">
+              Nước dùng của Dúng được làm từ gì?
+            </h1>
             <p className="text">
               Nồi nước dùng cầu kỳ không chỉ bởi hậu vị thanh ngọt mà còn ở khâu
               chuẩn bị nguyên liệu, thời gian đun nấu. Căn bếp mỗi sáng luôn rộn
@@ -41,13 +47,12 @@ const AboutUs = () => {
         </Row>
 
         {/* Gia tri cot loi */}
-        <Row className="mb-4">
-          <h1 className="section-title my-2">
-            Ngoài món nhúng ở Dúng còn có gì?
-          </h1>
-        </Row>
+        <Row className="mb-4"></Row>
         <Row>
-          <Col md={8}>
+          <Col md={7}>
+            <h1 className="section-title my-2">
+              Ngoài món nhúng ở Dúng còn có gì?
+            </h1>
             <p className="text">
               Món cuốn sáng tạo, là món ăn chơi nhưng vẫn đủ đầy dinh dưỡng và
               no bụng. Bếp sẽ cuốn khi có order nên luôn đảm bảo độ tươi giòn
@@ -57,47 +62,25 @@ const AboutUs = () => {
               thấy thú vị đó.
             </p>
           </Col>
-         
-
-          <p className="text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae magni
-            neque earum dolores magnam vitae dicta obcaecati soluta, ab
-            voluptatum delectus adipisci nobis impedit harum aspernatur quisquam
-            quas voluptate quod reprehenderit quo modi natus officia iure! Autem
-            optio officia veritatis in rerum. Enim, error laborum consectetur
-            dolorum ratione impedit nostrum natus debitis nemo laboriosam
-            commodi. Ut blanditiis nihil totam itaque adipisci debitis, ratione
-            autem, dolor quibusdam omnis explicabo voluptatum? Aspernatur
-            reiciendis fugit maiores voluptatem distinctio voluptate qui quasi
-            possimus esse ipsum, accusamus, doloremque nesciunt, amet aperiam.
-            Soluta distinctio non nemo!
-          </p>
-          <Col md={6} className="my-2">
-            <img className="GTCL1" src={GTCL1} alt="GTCL" loading="lazy" />
-          </Col>
-          <Col md={6} className="my-2">
-            <img className="GTCL1" src={GTCL1} alt="GTCL" loading="lazy" />
+          <Col>
+            <img
+              className="roll-image"
+              src={roll}
+              alt="Nguyen lieu"
+              loading="lazy"
+            />
           </Col>
         </Row>
+        <Row className="mb-4"></Row>
         <Row>
-          <p className="text mt-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-            numquam voluptas vero eum dignissimos, fugiat porro voluptatem
-            dolores exercitationem earum nisi molestias modi cupiditate.
-            Consectetur, necessitatibus nostrum voluptas cumque veniam
-            excepturi, ad a aliquid distinctio, ea magnam ullam tempora quidem
-            nulla hic error blanditiis ducimus rerum magni vero molestiae
-            deleniti. Qui dignissimos voluptatum fugiat excepturi molestiae sit
-            exercitationem eveniet error dolor rerum? Quod facere enim nobis
-            magni maxime, blanditiis quidem a reprehenderit. Culpa voluptas
-            rerum distinctio harum facilis, consectetur dolores. Commodi quo,
-            aliquid, illo aliquam nulla eius qui, maiores delectus molestias
-            exercitationem totam consequuntur nemo! Quaerat a ea tenetur quos!
-          </p>
+          <Col>
+            <p className="text">
+              Trong một không gian tươi mát tràn ngập cây xanh, Dúng muốn bạn
+              được hoà mình cùng thiên nhiên và thưởng thức những món ăn tươi
+              mới, sạch lành. Nhúng và cuốn, mời bạn ghé Dúng và trải nghiệm.
+            </p>
+          </Col>
         </Row>
-
-
-        
       </Container>
     </div>
   );

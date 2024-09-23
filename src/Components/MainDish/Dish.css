@@ -19,12 +19,13 @@
     width: auto; 
     border: 2px solid #E6D5CA;
     padding: 20px;
+    margin-bottom: 0;
 }
 .money {
     position: absolute;
-    top: -10px; 
+    top: -12px; 
     left: 30%;
-    transform: translateX(-49%);
+    transform: translateX(-50%);
     background-color: #211F4C;
     padding: 0 10px;
     color: #E6D5CA;

@@ -16,7 +16,7 @@
 }
 
 .hero-text h1 {
-  font-size: 3rem;
+  font-size: 2.7rem;
   margin-bottom: 1.5rem;
 }
 
@@ -28,9 +28,44 @@
 .btn-link {
   text-decoration: none;
 }
-
-.hero-btn {
-  font-size: 1.2rem;
-  padding: 0.8rem 2rem;
-  border-radius: 2rem;
+.menu-btn,.booking-btn {
+  position: relative;
+  overflow: hidden;
+  height: 3rem;
+  padding: 0 2rem;
+  border-radius: 1.5rem;
+  background: #3d3a4e;
+  background-size: 400%;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
+
+.menu-btn:hover:before ,.booking-btn:hover:before  {
+  transform: scaleX(1);
+}
+.menu-btn:before ,.booking-btn:before  {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  width: 100%;
+  height: inherit;
+  border-radius: inherit;
+  background: linear-gradient(
+    82.3deg,
+    rgba(150, 93, 233, 1) 10.8%,
+    rgba(99, 88, 238, 1) 94.3%
+  );
+  transition: all 0.475s;
+}
+.button-content {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+
