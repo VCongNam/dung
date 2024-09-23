@@ -24,19 +24,10 @@ const Home = () => {
               CHÚNG MÌNH LÀ GIA ĐÌNH DÚNG
             </h4>
             <p style={{ color: "black" }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
-              facere molestiae ullam quam blanditiis nam. Ratione repellendus
-              asperiores soluta explicabo ducimus. Amet optio odio aliquid eius
-              beatae! Laudantium tempore deserunt voluptas soluta totam?
-              Deleniti optio doloremque quidem illo similique corporis, sit
-              porro voluptate, maxime culpa quod magni! Sequi hic laudantium
-              aperiam quibusdam voluptas praesentium sit nihil id, dolores
-              adipisci ducimus amet veritatis ipsum minus quidem ut blanditiis,
-              nemo culpa voluptatibus sed earum. Inventore numquam dolore
-              exercitationem optio expedita velit iusto. Rerum sed doloribus,
-              voluptatem praesentium iusto recusandae, sapiente sequi quia,
-              optio corporis quae suscipit! Aliquid explicabo quos rerum
-              mollitia magni.
+              Hành trình mang đến những bữa ăn lành mạnh, tốt cho sức khoẻ bắt
+              đầu từ nguồn nguyên liệu tươi sạch. Dúng mang đến "thịt nhúng nước
+              quả" với nước dùng được nấu 100% từ hoa quả tươi, kết hợp cùng các
+              loại giấm lên men tự nhiên nhà làm.
             </p>
             <Link to="/aboutDung">
               <Button style={{ fontFamily: "Roboto Mono" }} className="btn">

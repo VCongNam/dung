@@ -11,12 +11,6 @@ const Hero = () => {
         <Row>
           <Col className="hero-text">
             <h1>Dúng xin chào bạn.</h1>
-            <p>
-              Hành trình mang đến những bữa ăn lành mạnh, tốt cho sức khoẻ bắt
-              đầu từ nguồn nguyên liệu tươi sạch. Dúng mang đến "thịt nhúng nước
-              quả" với nước dùng được nấu 100% từ hoa quả tươi, kết hợp cùng các
-              loại giấm lên men tự nhiên nhà làm.
-            </p>
             <Link to="/menu">
               <Button
                 style={{ marginRight: "10px", marginBottom: "10px" }}
