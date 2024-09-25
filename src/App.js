@@ -12,22 +12,22 @@ import Booking from "./Pages/Booking";
 import Menu from "./Pages/Menu";
 import "./App.css";
 import Boss from "./Pages/Boss";
-import { requestForToken, onMessageListener } from "./services/firebaseConfig";
+// import { requestForToken, onMessageListener } from "./services/firebaseConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  useEffect(() => {
-    requestForToken();
-  }, []);
+  // useEffect(() => {
+  //   // requestForToken();
+  // }, []);
 
-  useEffect(() => {
-    onMessageListener()
-      .then((payload) => {
-        toast.info(`New booking: ${payload.notification.body}`);
-      })
-      .catch((err) => console.log("failed: ", err));
-  }, []);
+  // useEffect(() => {
+  //   onMessageListener()
+  //     .then((payload) => {
+  //       toast.info(`New booking: ${payload.notification.body}`);
+  //     })
+  //     .catch((err) => console.log("failed: ", err));
+  // }, []);
 
   return (
     <div
