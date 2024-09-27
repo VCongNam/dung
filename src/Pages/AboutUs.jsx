@@ -3,6 +3,7 @@ import Hero from "../Components/Hero/Hero";
 import { Col, Container, Row } from "react-bootstrap";
 import nguyenlieu from "../Components/Assets/nvl.jpg";
 import roll from "../Components/Assets/roll.jpg";
+import dung from "../Components/Assets/aboutdung.jpg"
 import "../Pages/Css/AboutUs.css";
 
 const AboutUs = () => {
@@ -11,7 +12,14 @@ const AboutUs = () => {
       <Hero />
       <Container fluid="md" className="my-5">
         {/* Nguon nguyen lieu */}
-        <Row className="mb-4"></Row>
+        <Row className="mb-4"> <Col>
+            <img
+              className="ingredient-image"
+              src={dung}
+              alt="dung"
+              loading="lazy"
+            />
+          </Col></Row>
         <Row>
           <Col>
             <p className="text">
@@ -22,6 +30,8 @@ const AboutUs = () => {
             </p>
           </Col>
         </Row>
+
+
         <Row>
           <Col md={7}>
             <h1 className="section-title my-2">
