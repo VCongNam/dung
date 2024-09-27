@@ -3,7 +3,7 @@ import Hero from "../Components/Hero/Hero";
 import { Col, Container, Row } from "react-bootstrap";
 import nguyenlieu from "../Components/Assets/nvl.jpg";
 import roll from "../Components/Assets/roll.jpg";
-import dung from "../Components/Assets/aboutdung.jpg"
+import dung from "../Components/Assets/aboutdung.jpg";
 import "../Pages/Css/AboutUs.css";
 
 const AboutUs = () => {
@@ -12,16 +12,12 @@ const AboutUs = () => {
       <Hero />
       <Container fluid="md" className="my-5">
         {/* Nguon nguyen lieu */}
-        <Row className="mb-4"> <Col>
-            <img
-              className="ingredient-image"
-              src={dung}
-              alt="dung"
-              loading="lazy"
-            />
-          </Col></Row>
+        <Row className="mb-4">
+          {" "}
+          
+        </Row>
         <Row>
-          <Col>
+          <Col md={7}>
             <p className="text">
               Hành trình mang đến những bữa ăn lành mạnh, tốt cho sức khoẻ bắt
               đầu từ nguồn nguyên liệu tươi sạch. Dúng mang đến "thịt nhúng nước
@@ -29,9 +25,19 @@ const AboutUs = () => {
               loại giấm lên men tự nhiên nhà làm.
             </p>
           </Col>
+          <Col>
+            <img
+              className="ingredient-image"
+              src={dung}
+              alt="dung"
+              loading="lazy"
+            />
+          </Col> 
         </Row>
-
-
+        <Row className="mb-4">
+          {" "}
+          
+        </Row>
         <Row>
           <Col md={7}>
             <h1 className="section-title my-2">
@@ -55,7 +61,10 @@ const AboutUs = () => {
             />
           </Col>
         </Row>
-
+        <Row className="mb-4">
+          {" "}
+          
+        </Row>
         {/* Gia tri cot loi */}
         <Row className="mb-4"></Row>
         <Row>
