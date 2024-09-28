@@ -20,9 +20,6 @@ const Home = () => {
             <Image src={home1} thumbnail />
           </Col>
           <Col>
-            <h4 style={{ fontFamily: "Roboto Mono" }}>
-              CHÚNG MÌNH LÀ GIA ĐÌNH DÚNG
-            </h4>
             <p style={{ color: "black" }}>
               Hành trình mang đến những bữa ăn lành mạnh, tốt cho sức khoẻ bắt
               đầu từ nguồn nguyên liệu tươi sạch. Dúng mang đến "thịt nhúng nước
@@ -30,7 +27,7 @@ const Home = () => {
               loại giấm lên men tự nhiên nhà làm.
             </p>
             <Link to="/aboutDung">
-              <Button style={{ fontFamily: "Roboto Mono" }} className="btn">
+              <Button  className="btn">
                 Tìm hiểu thêm về Dúng
               </Button>
             </Link>

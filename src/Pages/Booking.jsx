@@ -221,7 +221,7 @@ const Booking = () => {
 
   return (
     <div>
-      <Container className="booking-container">
+      <Container className="booking-container my-3">
         <h1 className="booking-header">Đặt Bàn</h1>
         <Form onSubmit={handleSubmit} className="booking-form">
           <Row>
