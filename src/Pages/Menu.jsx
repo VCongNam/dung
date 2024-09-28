@@ -28,7 +28,10 @@ const Menu = () => {
 
   const fetchMenu = async () => {
     try {
-      const { data, error } = await supabase.from("menu").select("*");
+      const { data, error } = await supabase
+        .from("menu")
+        .select("*")
+        .order("id"); 
       if (error) {
         console.error("Error fetching menu data:", error.message);
       } else {
@@ -87,7 +90,7 @@ const Menu = () => {
           <Row className="mt-4" key={category1}>
             <Col md={6}>
               <MenuSection title={category1}>
-                {categories[category1].map((item) => (
+                {categories[category1].sort((a, b) => a.id - b.id).map((item) => (
                   <MenuItem
                     key={item.id}
                     name={item.item_name}
@@ -99,7 +102,7 @@ const Menu = () => {
             {category2 && (
               <Col md={6}>
                 <MenuSection title={category2}>
-                  {categories[category2].map((item) => (
+                  {categories[category2].sort((a, b) => a.id - b.id).map((item) => (
                     <MenuItem
                       key={item.id}
                       name={item.item_name}

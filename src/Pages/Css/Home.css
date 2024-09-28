@@ -28,7 +28,7 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     margin: 40px 0;
-    font-family: "Comfortaa", sans-serif;
+    font-family: "GanhTypeRegular", sans-serif;
   }
 
   .about-dung {
@@ -63,7 +63,7 @@
     margin-bottom: 20px;
     color: var(--accent-color);
     font-size: 24px;
-    font-family: "Comfortaa", sans-serif;
+    font-family: "GanhTypeRegular", sans-serif;
   }
   
   .about-dung p {
@@ -71,7 +71,7 @@
     line-height: 1.8;
     color: var(--light-text-color);
     font-size: 16px;
-    font-family: "Comfortaa", sans-serif;
+    font-family: "GanhTypeRegular", sans-serif;
   }
   
   .about-dung .btn {

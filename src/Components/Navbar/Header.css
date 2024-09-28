@@ -7,14 +7,14 @@
 
 .navbar-brand {
   font-size: 1.5rem; /* Increase font size of brand text */
-  font-family: "Comfortaa", sans-serif;
+  font-family: "GanhTypeRegular", sans-serif;
 }
 
 .navbar-nav .nav-link {
   color: #E6D5CA; /* Set link text color */
   font-weight: bold; /* Make link text bold */
   margin-right: 15px; /* Add margin between links */
-  font-family: "Comfortaa", sans-serif;
+  font-family: "GanhTypeRegular", sans-serif;
 }
 
 .navbar-nav .nav-link:hover {

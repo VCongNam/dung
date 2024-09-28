@@ -1,14 +1,37 @@
-body{
-    display: flex;
-    flex-direction: column;
-    height: 100dvh;
-    background-color: #E6D5CA;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  background-color: #e6d5ca;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-html, body {
-    height: 100vh;
-    width: 100vw;
-    }
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+}
+@font-face {
+    font-family: 'GanhTypeRegular';
+    src: url('../font/GanhTypeRegular.otf') format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'GanhTypeThin';
+    src: url('../font/Ganh Type - Thin.otf') format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'GanhTypeRegularItalic';
+    src: url('../font/Ganh Type - RegularItalic.otf') format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'GanhTypeThinItalic';
+    src: url('../font/Ganh Type - ThinItalic.otf') format('opentype');
+  }
+  body {
+    font-family: 'GanhTypeRegular', sans-serif;
+  }
