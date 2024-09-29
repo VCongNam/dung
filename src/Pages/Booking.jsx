@@ -114,7 +114,7 @@ const Booking = () => {
       headers: {
         'Title': 'New Booking',
         'Priority': 5,
-        'Actions': 'view, Check Booking, https://dungdipandroll-congnams-projects.vercel.app/boss' 
+        'Actions': 'view, Check Booking, https://dungdipandroll-congnams-projects.vercel.app/#boss' 
       },
     
     })
