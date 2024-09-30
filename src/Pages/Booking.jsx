@@ -233,7 +233,6 @@ const Booking = () => {
                   name="name"
                   value={bookingDetails.name}
                   onChange={handleChange}
-                  placeholder="Nhập tên của bạn"
                   required
                 />
               </Form.Group>
@@ -246,7 +245,6 @@ const Booking = () => {
                   name="phone"
                   value={bookingDetails.phone}
                   onChange={handleChange}
-                  placeholder="Nhập số điện thoại"
                   required
                 />
               </Form.Group>
@@ -299,13 +297,12 @@ const Booking = () => {
             </Col>
             <Col md={6}>
               <Form.Group controlId="formNotes">
-                <Form.Label>Nhắn nhủ cho chúng mình</Form.Label>
+                <Form.Label>Yêu cầu riêng của bạn</Form.Label>
                 <Form.Control
                   as="textarea"
                   name="notes"
                   value={bookingDetails.notes}
                   onChange={handleChange}
-                  placeholder="Nhập ghi chú của bạn (tuỳ chọn)"
                 />
               </Form.Group>
             </Col>
@@ -317,8 +314,8 @@ const Booking = () => {
           >
             Đặt bàn
           </Button>
-          <h6 className="text-center mt-4 d-none d-md-block">
-            <span  style={{ fontWeight: "650"}}>DÚNG</span> sẽ sớm liên hệ với bạn để xác nhận thông tin đặt bàn. Cảm ơn bạn. 
+          <h6 className="text-center mt-4 ">
+          Cảm ơn bạn. Dúng sẽ sớm liên hệ lại với bạn theo thông tin cung cấp. Chỉ khi Dúng gọi điện xác nhận, yêu cầu của bạn mới được coi là đặt bàn thành công.
           </h6>
         </Form>
         <div className="search-container mt-4">

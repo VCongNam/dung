@@ -76,7 +76,7 @@ const Menu = () => {
     <div className="menu">
       <Container style={{ backgroundColor: "#E6D5CA" }}>
         <Row>
-          <h1 className="menu-header" style={{ fontFamily: "Comfortaa, sans-serif" }}>
+          <h1 className="menu-header">
             Menu
           </h1>
           
