@@ -1,12 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Table, Dropdown, Button } from 'react-bootstrap';
-import supabase from '../services/supabaseConfig';
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Table,
+  Dropdown,
+  Button,
+} from "react-bootstrap";
+import supabase from "../services/supabaseConfig";
 
 const Boss = () => {
   const [bookings, setBookings] = useState([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
-  const [dateFilter, setDateFilter] = useState('');
-  const [nameFilter, setNameFilter] = useState('');
+  const [dateFilter, setDateFilter] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
   const [isSortedByDate, setIsSortedByDate] = useState(false);
 
   useEffect(() => {
@@ -15,15 +23,15 @@ const Boss = () => {
 
   const fetchBookings = async () => {
     try {
-      let { data, error } = await supabase.from('bookings').select('*');
+      let { data, error } = await supabase.from("bookings").select("*");
       if (error) {
-        console.error('Error fetching booking data:', error.message);
+        console.error("Error fetching booking data:", error.message);
       } else {
         setBookings(data);
         setFilteredBookings(data);
       }
     } catch (error) {
-      console.error('Error fetching booking data:', error.message);
+      console.error("Error fetching booking data:", error.message);
     }
   };
 
@@ -47,12 +55,12 @@ const Boss = () => {
   const filterBookings = (name, date, sortByDate) => {
     let filtered = bookings;
     if (name) {
-      filtered = filtered.filter(booking =>
+      filtered = filtered.filter((booking) =>
         booking.name.toLowerCase().includes(name.toLowerCase())
       );
     }
     if (date) {
-      filtered = filtered.filter(booking => booking.date === date);
+      filtered = filtered.filter((booking) => booking.date === date);
     }
     if (sortByDate) {
       filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -63,34 +71,34 @@ const Boss = () => {
   const handleStatusChange = async (bookingId, newStatus) => {
     try {
       const { data, error } = await supabase
-        .from('bookings')
+        .from("bookings")
         .update({ status: newStatus })
-        .eq('id', bookingId)
+        .eq("id", bookingId)
         .select();
 
       if (error) {
-        console.error('Error updating booking status:', error.message);
+        console.error("Error updating booking status:", error.message);
       } else {
         // Update local state
-        const updatedBookings = bookings.map(booking =>
+        const updatedBookings = bookings.map((booking) =>
           booking.id === bookingId ? { ...booking, status: newStatus } : booking
         );
         setBookings(updatedBookings);
         setFilteredBookings(updatedBookings);
       }
     } catch (error) {
-      console.error('Error updating booking status:', error.message);
+      console.error("Error updating booking status:", error.message);
     }
   };
 
   const getStatusStyles = (status) => {
     switch (status) {
-      case 'Chờ duyệt':
-        return { backgroundColor: 'yellow', color: 'black' };
-      case 'Xác nhận':
-        return { backgroundColor: 'blue', color: 'white' };
-      case 'Hoàn thành':
-        return { backgroundColor: 'green', color: 'white' };
+      case "Chờ duyệt":
+        return { backgroundColor: "yellow", color: "black" };
+      case "Xác nhận":
+        return { backgroundColor: "blue", color: "white" };
+      case "Hoàn thành":
+        return { backgroundColor: "green", color: "white" };
       default:
         return {};
     }
@@ -122,8 +130,12 @@ const Boss = () => {
           </Form.Group>
         </Col>
         <Col md={4} className="d-flex align-items-end">
-          <Button variant="primary" onClick={handleSortByDate}>
-            Sắp xếp theo ngày {isSortedByDate ? '(cũ nhất trước)' : '(mới nhất trước)'}
+          <Button variant="outline-primary mx-3" onClick={handleSortByDate}>
+            Sắp xếp theo ngày{" "}
+            {isSortedByDate ? "(cũ nhất trước)" : "(mới nhất trước)"}
+          </Button>
+          <Button variant="outline-primary" onClick={fetchBookings}>
+            Load lại trang
           </Button>
         </Col>
       </Row>
@@ -149,7 +161,11 @@ const Boss = () => {
               <td>{booking.time}</td>
               <td>{booking.notes}</td>
               <td>
-                <Dropdown onSelect={(eventKey) => handleStatusChange(booking.id, eventKey)}>
+                <Dropdown
+                  onSelect={(eventKey) =>
+                    handleStatusChange(booking.id, eventKey)
+                  }
+                >
                   <Dropdown.Toggle
                     variant="secondary"
                     id={`dropdown-${booking.id}`}
@@ -158,9 +174,13 @@ const Boss = () => {
                     {booking.status}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item eventKey="Chờ duyệt">Chờ duyệt</Dropdown.Item>
+                    <Dropdown.Item eventKey="Chờ duyệt">
+                      Chờ duyệt
+                    </Dropdown.Item>
                     <Dropdown.Item eventKey="Xác nhận">Xác nhận</Dropdown.Item>
-                    <Dropdown.Item eventKey="Hoàn thành">Hoàn thành</Dropdown.Item>
+                    <Dropdown.Item eventKey="Hoàn thành">
+                      Hoàn thành
+                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </td>
@@ -173,3 +193,4 @@ const Boss = () => {
 };
 
 export default Boss;
+
