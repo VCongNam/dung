@@ -97,8 +97,6 @@ const Boss = () => {
         return { backgroundColor: "yellow", color: "black" };
       case "Xác nhận":
         return { backgroundColor: "blue", color: "white" };
-      case "Hoàn thành":
-        return { backgroundColor: "green", color: "white" };
       default:
         return {};
     }
@@ -178,9 +176,6 @@ const Boss = () => {
                       Chờ duyệt
                     </Dropdown.Item>
                     <Dropdown.Item eventKey="Xác nhận">Xác nhận</Dropdown.Item>
-                    <Dropdown.Item eventKey="Hoàn thành">
-                      Hoàn thành
-                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </td>
