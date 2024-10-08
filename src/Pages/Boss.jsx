@@ -27,12 +27,22 @@ const Boss = () => {
       if (error) {
         console.error("Error fetching booking data:", error.message);
       } else {
-        setBookings(data);
-        setFilteredBookings(data);
+        // Convert date format when fetching
+        const formattedData = data.map(booking => ({
+          ...booking,
+          date: formatDate(booking.date)
+        }));
+        setBookings(formattedData);
+        setFilteredBookings(formattedData);
       }
     } catch (error) {
       console.error("Error fetching booking data:", error.message);
     }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
   };
 
   const handleDateFilter = (e) => {
@@ -60,10 +70,16 @@ const Boss = () => {
       );
     }
     if (date) {
-      filtered = filtered.filter((booking) => booking.date === date);
+      // Convert the filter date to the same format for comparison
+      const formattedFilterDate = formatDate(date);
+      filtered = filtered.filter((booking) => booking.date === formattedFilterDate);
     }
     if (sortByDate) {
-      filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+      filtered.sort((a, b) => {
+        const [dayA, monthA, yearA] = a.date.split('-');
+        const [dayB, monthB, yearB] = b.date.split('-');
+        return new Date(yearB, monthB - 1, dayB) - new Date(yearA, monthA - 1, dayA);
+      });
     }
     setFilteredBookings(filtered);
   };
@@ -188,4 +204,3 @@ const Boss = () => {
 };
 
 export default Boss;
-
