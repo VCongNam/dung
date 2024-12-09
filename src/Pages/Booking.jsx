@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import "../Pages/Css/Booking.css";
 import supabase from "../services/supabaseConfig"; // Import supabase client
+import { toast } from "react-toastify";
 
 const Booking = () => {
   const [bookingDetails, setBookingDetails] = useState({
@@ -29,8 +30,14 @@ const Booking = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [bookingToDelete, setBookingToDelete] = useState(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isOutsideServiceHours, setIsOutsideServiceHours] = useState(false);
+
 
   useEffect(() => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 22 || currentHour < 6) {
+      setIsOutsideServiceHours(true);
+    }
     // Fetch initial bookings data
     const fetchBookings = async () => {
       try {
@@ -47,7 +54,35 @@ const Booking = () => {
 
     fetchBookings();
   }, []);
-
+  if (isOutsideServiceHours) {
+    return (
+      <div 
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'black',
+          opacity: 0.8,
+          color: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 3,
+          padding: '20px',
+          textAlign: 'center'
+        }}
+      >
+        <h1 style={{marginBottom: '20px'}}>Dúng Thông Báo</h1>
+        <p style={{fontSize: '24px'}}>
+        Chúng mình tạm dừng đặt bàn qua website từ 22h đến 6h sáng hôm sau. Hẹn bạn quay lại sau!
+        </p>
+        
+      </div>
+    );
+  }
   const handleChange = (e) => {
     // Update booking details state on input change
     const { name, value } = e.target;
@@ -62,17 +97,25 @@ const Booking = () => {
 
     // Validate booking details
     if (parseInt(bookingDetails.people) <= 0) {
-      alert("Số lượng người phải lớn hơn 0");
+      toast.error("Số lượng người phải lớn hơn 0");
 
       return;
     }
 
     const currentDate = new Date().toISOString().split("T")[0];
     if (bookingDetails.date < currentDate) {
-      alert("Bạn không thể đặt bàn cho ngày trong quá khứ");
+      toast.error("Bạn không thể đặt bàn cho ngày trong quá khứ");
       return;
     }
+    const bookingDateTime = new Date(`${bookingDetails.date}T${bookingDetails.time}`);
+    const currentDateTime = new Date();
+    const timeDifference = bookingDateTime.getTime() - currentDateTime.getTime();
+    const hoursDifference = timeDifference / (1000 * 3600);
 
+    if (hoursDifference < 1) {
+      toast.error("Vui lòng đặt bàn trước ít nhất 1 giờ hoặc liên hệ hotline 0986610910.");
+      return;
+    }
     try {
       const generateRandomId = () => {
         return Math.random().toString(36).substr(2, 8);
@@ -100,8 +143,8 @@ const Booking = () => {
         setShowSuccessModal(true);
         setTimeout(() => {
           setShowSuccessModal(false);
-          window.location.reload();
-        }, 3000);
+          
+        }, 2500);
       }
     } catch (error) {
       console.error("Error saving booking data:", error.message);
@@ -110,12 +153,13 @@ const Booking = () => {
   const sendNotification = (newBooking) => {
     fetch("https://ntfy.sh/Booking", {
       method: "POST",
-      body: `${newBooking.name} at ${newBooking.date} `,
+      body: `${newBooking.name} - ${newBooking.date} - ${newBooking.time}`, 
       headers: {
-        'Title': 'New Booking',
+        'Title': 'Khách',
         'Priority': 5,
         'Actions': 'view, Check Booking, https://dungdipandroll-congnams-projects.vercel.app/#boss' 
       },
+      
     
     })
       .then((response) => {
@@ -556,3 +600,4 @@ const Booking = () => {
 };
 
 export default Booking;
+
