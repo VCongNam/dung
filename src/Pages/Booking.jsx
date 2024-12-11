@@ -155,7 +155,7 @@ const Booking = () => {
       method: "POST",
       body: `${newBooking.name} - ${newBooking.date} - ${newBooking.time}`, 
       headers: {
-        'Title': 'Khách',
+        'Title': 'BOOKING',
         'Priority': 5,
         'Actions': 'view, Check Booking, https://dungdipandroll-congnams-projects.vercel.app/#boss' 
       },
