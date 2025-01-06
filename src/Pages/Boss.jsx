@@ -7,6 +7,8 @@ import {
   Table,
   Dropdown,
   Button,
+  Badge,
+  Modal
 } from "react-bootstrap";
 import supabase from "../services/supabaseConfig";
 
@@ -16,6 +18,8 @@ const Boss = () => {
   const [dateFilter, setDateFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
   const [isSortedByDate, setIsSortedByDate] = useState(false);
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+  const [bookingToDelete, setBookingToDelete] = useState(null);
 
   useEffect(() => {
     fetchBookings();
@@ -118,6 +122,37 @@ const Boss = () => {
     }
   };
 
+  const handleDeleteBooking = (bookingId) => {
+    setBookingToDelete(bookingId);
+    setShowDeleteWarning(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      const { error } = await supabase
+        .from("bookings")
+        .delete()
+        .eq("id", bookingToDelete);
+
+      if (error) {
+        console.error("Error deleting booking:", error.message);
+      } else {
+        // Update local state
+        const updatedBookings = bookings.filter((booking) => booking.id !== bookingToDelete);
+        setBookings(updatedBookings);
+        setFilteredBookings(updatedBookings);
+      }
+      setShowDeleteWarning(false);
+    } catch (error) {
+      console.error("Error deleting booking:", error.message);
+    }
+  };
+
+  const handleEditBooking = (bookingId) => {
+    // Redirect to edit booking page
+    window.location.href = `/edit-booking/${bookingId}`;
+  };
+
   return (
     <Container>
       <h1 className="my-4">Quản lý đặt bàn</h1>
@@ -153,6 +188,7 @@ const Boss = () => {
           </Button>
         </Col>
       </Row>
+      <h1>Tổng số bàn đặt: {filteredBookings.length} bàn</h1>
       <Table striped bordered hover responsive>
         <thead>
           <tr>
@@ -163,6 +199,7 @@ const Boss = () => {
             <th>Giờ</th>
             <th>Ghi chú</th>
             <th>Trạng thái</th>
+            <th>Thao tác</th>
           </tr>
         </thead>
         <tbody>
@@ -195,10 +232,48 @@ const Boss = () => {
                   </Dropdown.Menu>
                 </Dropdown>
               </td>
+              <td>
+                <Button
+                  variant="outline-primary"
+                  size="sm"
+                  onClick={() => handleEditBooking(booking.id)}
+                >
+                  Sửa
+                </Button>
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={() => handleDeleteBooking(booking.id)}
+                >
+                  Xóa
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>
       </Table>
+      <Modal
+        show={showDeleteWarning}
+        onHide={() => setShowDeleteWarning(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Xóa đặt bàn</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Bạn có chắc chắn muốn xóa đặt bàn này?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="outline-danger"
+            onClick={handleConfirmDelete}
+          >
+            Xóa
+          </Button>
+          <Button variant="outline-primary" onClick={() => setShowDeleteWarning(false)}>
+            Hủy
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
