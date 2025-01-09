@@ -8,7 +8,8 @@ import {
   Dropdown,
   Button,
   Badge,
-  Modal
+  Modal,
+  Pagination,
 } from "react-bootstrap";
 import supabase from "../services/supabaseConfig";
 
@@ -20,6 +21,8 @@ const Boss = () => {
   const [isSortedByDate, setIsSortedByDate] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [bookingToDelete, setBookingToDelete] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [bookingToEdit, setBookingToEdit] = useState(null);
 
   useEffect(() => {
     fetchBookings();
@@ -117,6 +120,8 @@ const Boss = () => {
         return { backgroundColor: "yellow", color: "black" };
       case "Xác nhận":
         return { backgroundColor: "blue", color: "white" };
+      case "Hết bàn":
+        return { backgroundColor: "red", color: "white" };
       default:
         return {};
     }
@@ -149,13 +154,45 @@ const Boss = () => {
   };
 
   const handleEditBooking = (bookingId) => {
-    // Redirect to edit booking page
-    window.location.href = `/edit-booking/${bookingId}`;
+    const booking = bookings.find((b) => b.id === bookingId);
+    setBookingToEdit(booking);
+    setShowEditModal(true);
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("bookings")
+        .update(bookingToEdit)
+        .eq("id", bookingToEdit.id)
+        .select();
+
+      if (error) {
+        console.error("Error updating booking:", error.message);
+      } else {
+        // Update local state
+        const updatedBookings = bookings.map((booking) =>
+          booking.id === bookingToEdit.id ? bookingToEdit : booking
+        );
+        setBookings(updatedBookings);
+        setFilteredBookings(updatedBookings);
+        setShowEditModal(false);
+      }
+    } catch (error) {
+      console.error("Error updating booking:", error.message);
+    }
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setBookingToEdit({ ...bookingToEdit, [name]: value });
   };
 
   return (
     <Container>
-      <h1 className="my-4">Quản lý đặt bàn</h1>
+      <h1 className="my-4 text-center">Quản lý đặt bàn</h1>
+      <h1 className="my-4 text-center">Tổng số bàn đặt: <span style={{ fontWeight: "bold" }}> {filteredBookings.length}</span>  bàn</h1>
+
       <Row className="mb-3">
         <Col md={4}>
           <Form.Group controlId="dateFilter">
@@ -188,7 +225,6 @@ const Boss = () => {
           </Button>
         </Col>
       </Row>
-      <h1>Tổng số bàn đặt: {filteredBookings.length} bàn</h1>
       <Table striped bordered hover responsive>
         <thead>
           <tr>
@@ -225,10 +261,9 @@ const Boss = () => {
                     {booking.status}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item eventKey="Chờ duyệt">
-                      Chờ duyệt
-                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="Chờ duyệt">Chờ duyệt</Dropdown.Item>
                     <Dropdown.Item eventKey="Xác nhận">Xác nhận</Dropdown.Item>
+                    <Dropdown.Item eventKey="Hết bàn">Hết bàn</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </td>
@@ -270,6 +305,85 @@ const Boss = () => {
             Xóa
           </Button>
           <Button variant="outline-primary" onClick={() => setShowDeleteWarning(false)}>
+            Hủy
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Sửa đặt bàn</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {bookingToEdit && (
+            <Form>
+              <Form.Group controlId="editName">
+                <Form.Label>Tên</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  value={bookingToEdit.name}
+                  onChange={handleEditChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="editPhone">
+                <Form.Label>Số điện thoại</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="phone"
+                  value={bookingToEdit.phone}
+                  onChange={handleEditChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="editPeople">
+                <Form.Label>Số người</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="people"
+                  value={bookingToEdit.people}
+                  onChange={handleEditChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="editDate">
+                <Form.Label>Ngày</Form.Label>
+                <Form.Control
+                  type="date"
+                  name="date"
+                  value={bookingToEdit.date}
+                  onChange={handleEditChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="editTime">
+                <Form.Label>Giờ</Form.Label>
+                <Form.Control
+                  type="time"
+                  name="time"
+                  value={bookingToEdit.time}
+                  onChange={handleEditChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="editNotes">
+                <Form.Label>Ghi chú</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  name="notes"
+                  value={bookingToEdit.notes}
+                  onChange={handleEditChange}
+                />
+              </Form.Group>
+            </Form>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="outline-primary"
+            onClick={handleSaveEdit}
+          >
+            Lưu
+          </Button>
+          <Button variant="outline-secondary" onClick={() => setShowEditModal(false)}>
             Hủy
           </Button>
         </Modal.Footer>
