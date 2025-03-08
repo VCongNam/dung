@@ -35,9 +35,13 @@ const Booking = () => {
 
   useEffect(() => {
     const currentHour = new Date().getHours();
-    if (currentHour >= 22 || currentHour < 6) {
-      setIsOutsideServiceHours(true);
-    }
+    // if (currentHour >= 22 || currentHour < 6) {
+    //   setIsOutsideServiceHours(true);
+    // }
+
+    // khóa đặt bàn
+    setIsOutsideServiceHours(true);
+
     // Fetch initial bookings data
     const fetchBookings = async () => {
       try {
@@ -77,7 +81,7 @@ const Booking = () => {
       >
         <h1 style={{marginBottom: '20px'}}>Dúng Thông Báo</h1>
         <p style={{fontSize: '24px'}}>
-        Chúng mình tạm dừng đặt bàn qua website từ 22h đến 6h sáng hôm sau. Hẹn bạn quay lại sau!
+        Chúng mình tạm dừng đặt bàn qua website để nâng cấp hệ thống. Hãy gọi hotline để đặt bàn tại DÚNG.
         </p>
         
       </div>
