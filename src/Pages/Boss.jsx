@@ -18,11 +18,13 @@ const Boss = () => {
   const [filteredBookings, setFilteredBookings] = useState([]);
   const [dateFilter, setDateFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
-  const [isSortedByDate, setIsSortedByDate] = useState(false);
+  const [isSortedByDate, setIsSortedByDate] = useState(true);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [bookingToDelete, setBookingToDelete] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [bookingToEdit, setBookingToEdit] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   useEffect(() => {
     fetchBookings();
@@ -34,11 +36,15 @@ const Boss = () => {
       if (error) {
         console.error("Error fetching booking data:", error.message);
       } else {
-        // Convert date format when fetching
+        // Convert date format when fetching and sort by date
         const formattedData = data.map(booking => ({
           ...booking,
           date: formatDate(booking.date)
-        }));
+        })).sort((a, b) => {
+          const [dayA, monthA, yearA] = a.date.split('-');
+          const [dayB, monthB, yearB] = b.date.split('-');
+          return new Date(yearB, monthB - 1, dayB) - new Date(yearA, monthA - 1, dayA);
+        });
         setBookings(formattedData);
         setFilteredBookings(formattedData);
       }
@@ -77,7 +83,6 @@ const Boss = () => {
       );
     }
     if (date) {
-      // Convert the filter date to the same format for comparison
       const formattedFilterDate = formatDate(date);
       filtered = filtered.filter((booking) => booking.date === formattedFilterDate);
     }
@@ -89,6 +94,7 @@ const Boss = () => {
       });
     }
     setFilteredBookings(filtered);
+    setCurrentPage(1); // Reset to first page when filtering
   };
 
   const handleStatusChange = async (bookingId, newStatus) => {
@@ -188,6 +194,84 @@ const Boss = () => {
     setBookingToEdit({ ...bookingToEdit, [name]: value });
   };
 
+  // Calculate pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredBookings.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const renderPagination = () => {
+    const pageNumbers = [];
+    const maxPageButtons = 5; // Maximum number of page buttons to show
+    let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
+    let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+
+    // Adjust startPage if we're near the end
+    if (endPage - startPage + 1 < maxPageButtons) {
+      startPage = Math.max(1, endPage - maxPageButtons + 1);
+    }
+
+    for (let number = startPage; number <= endPage; number++) {
+      pageNumbers.push(
+        <Pagination.Item
+          key={number}
+          active={number === currentPage}
+          onClick={() => handlePageChange(number)}
+        >
+          {number}
+        </Pagination.Item>
+      );
+    }
+
+    return (
+      <Pagination className="justify-content-center">
+        <Pagination.First 
+          onClick={() => handlePageChange(1)} 
+          disabled={currentPage === 1}
+          className="mx-1"
+        />
+        <Pagination.Prev 
+          onClick={() => handlePageChange(currentPage - 1)} 
+          disabled={currentPage === 1}
+          className="mx-1"
+        />
+        
+        {startPage > 1 && (
+          <>
+            <Pagination.Item onClick={() => handlePageChange(1)}>1</Pagination.Item>
+            {startPage > 2 && <Pagination.Ellipsis disabled />}
+          </>
+        )}
+
+        {pageNumbers}
+
+        {endPage < totalPages && (
+          <>
+            {endPage < totalPages - 1 && <Pagination.Ellipsis disabled />}
+            <Pagination.Item onClick={() => handlePageChange(totalPages)}>
+              {totalPages}
+            </Pagination.Item>
+          </>
+        )}
+
+        <Pagination.Next 
+          onClick={() => handlePageChange(currentPage + 1)} 
+          disabled={currentPage === totalPages}
+          className="mx-1"
+        />
+        <Pagination.Last 
+          onClick={() => handlePageChange(totalPages)} 
+          disabled={currentPage === totalPages}
+          className="mx-1"
+        />
+      </Pagination>
+    );
+  };
+
   return (
     <Container>
       <h1 className="my-4 text-center">Quản lý đặt bàn</h1>
@@ -239,7 +323,7 @@ const Boss = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredBookings.map((booking) => (
+          {currentItems.map((booking) => (
             <tr key={booking.id}>
               <td>{booking.name}</td>
               <td>{booking.phone}</td>
@@ -287,6 +371,18 @@ const Boss = () => {
           ))}
         </tbody>
       </Table>
+
+      {totalPages > 1 && (
+        <div className="d-flex flex-column align-items-center mt-4 mb-4">
+          <div className="mb-2">
+            <span className="text-muted">
+              Hiển thị {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, filteredBookings.length)} của {filteredBookings.length} kết quả
+            </span>
+          </div>
+          {renderPagination()}
+        </div>
+      )}
+
       <Modal
         show={showDeleteWarning}
         onHide={() => setShowDeleteWarning(false)}
