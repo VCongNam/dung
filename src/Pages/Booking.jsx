@@ -35,12 +35,12 @@ const Booking = () => {
 
   useEffect(() => {
     const currentHour = new Date().getHours();
-    if (currentHour >= 22 || currentHour < 6) {
-      setIsOutsideServiceHours(true);
-    }
+    // if (currentHour >= 22 || currentHour < 6) {
+    //   setIsOutsideServiceHours(true);
+    // }
 
     // khóa đặt bàn
-    // setIsOutsideServiceHours(true);
+    setIsOutsideServiceHours(true);
 
     // Fetch initial bookings data
     const fetchBookings = async () => {
